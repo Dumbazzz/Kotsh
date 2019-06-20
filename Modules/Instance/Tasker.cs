@@ -87,14 +87,14 @@ namespace Kotsh.Modules.Instance
                     // Get initial checks
                     int initial_check = int.Parse(core.runStats["checked"]);
 
-                    // Wait 10 seconds
-                    Thread.Sleep(250);
+                    // Wait 2 seconds
+                    Thread.Sleep(2000);
 
                     // Get actual checks
                     int actual_check = int.Parse(core.runStats["checked"]);
 
                     // Calculate it
-                    int cpm = (actual_check - initial_check)/* * 30*/;
+                    int cpm = (actual_check - initial_check) * 30;
 
                     // Assign CPM
                     core.runStats["cpm"] = cpm.ToString();
