@@ -55,6 +55,9 @@
     <Reference Include="Goblinfactory.ProgressBar, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Goblinfactory.ProgressBar.0.4.0\lib\netstandard2.0\Goblinfactory.ProgressBar.dll</HintPath>
     </Reference>
+    <Reference Include="Leaf.xNet, Version=5.1.76.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Leaf.xNet.5.1.76\lib\net472\Leaf.xNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -82,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="README.md">
+      <SubType>Component</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
