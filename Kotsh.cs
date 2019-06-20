@@ -36,7 +36,10 @@ namespace Kotsh
         /// <summary>
         /// Settings used for the run
         /// </summary>
-        public NameValueCollection runSettings = new NameValueCollection();
+        public NameValueCollection runSettings = new NameValueCollection()
+        {
+            { "ProxyProtocol", "HTTP" }
+        };
 
         /// <summary>
         /// Stats during the run
