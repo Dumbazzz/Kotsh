@@ -29,11 +29,6 @@ namespace Kotsh.Modules.Console
         }
 
         /// <summary>
-        /// Write on Lock security (safe threading)
-        /// </summary>
-        private ReaderWriterLockSlim consoleLock = new ReaderWriterLockSlim();
-
-        /// <summary>
         /// Progress bar used for the check
         /// </summary>
         private Konsole.ProgressBar pbar;
