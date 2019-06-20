@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kotsh", "Kotsh.csproj", "{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "..\Example\Example.csproj", "{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526} = {1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Debug|x64.ActiveCfg = Debug|x64
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Debug|x64.Build.0 = Debug|x64
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Release|x64.ActiveCfg = Release|x64
+		{1A7B5C7D-E2D1-41DD-BDAD-7C1FF2C55526}.Release|x64.Build.0 = Release|x64
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Debug|x64.ActiveCfg = Debug|x64
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Debug|x64.Build.0 = Debug|x64
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Release|x64.ActiveCfg = Release|x64
+		{D6115F9C-7B2B-4E89-8D47-E98FFACEF87F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AD5D2AC-38B2-4BCE-85D5-22B0DFA60407}
+	EndGlobalSection
+EndGlobal
