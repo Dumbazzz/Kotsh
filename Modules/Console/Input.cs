@@ -114,7 +114,7 @@ namespace Kotsh.Modules.Console
             int response = this.AskInteger("Type your choice:");
 
             // Check result
-            while (response > choices.Length || response < 0)
+            while (!Enumerable.Range(0, choices.Length).Contains(response))
             {
                 // Ask question
                 response = this.AskInteger("Wrong choice, type another choice:");
