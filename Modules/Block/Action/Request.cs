@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Leaf.xNet;
 
@@ -12,12 +12,12 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// Plain-text response
         /// </summary>
-        public string data;
+        public string data = "";
 
         /// <summary>
         /// HTTP response code
         /// </summary>
-        public string code;
+        public string code = "";
 
         /// <summary>
         /// Headers with response
@@ -155,24 +155,64 @@ namespace Kotsh.Modules.Block
         }
 
         /// <summary>
-        /// Execute request
+        /// Set proxy (if defined) and execute action
         /// </summary>
-        public void Execute()
+        /// <returns>Success/Error boolean</returns>
+        public bool Execute()
         {
-            // Sort method
-            switch(method)
+            // Check if proxies are used
+            if (Block.core.Proxies.Count > 0)
             {
-                // GET method
-                case "GET":
-                    // Execute
-                    AssignResponses(request.Get(URL));
-                    break;
+                // Get proxy type
+                string type = Block.core.runSettings["ProxyProtocol"];
 
-                // POST method
-                case "POST":
-                    // Execute
-                    AssignResponses(request.Post(URL, body));
-                    break;
+                // Get proxy
+                string proxy = Block.core.Tasker.GetProxy();
+
+                // Select proxy
+                switch (type)
+                {
+                    case "HTTP":
+                        request.Proxy = HttpProxyClient.Parse(proxy);
+                        break;
+                    case "SOCKS4":
+                        request.Proxy = Socks4ProxyClient.Parse(proxy);
+                        break;
+                    case "SOCKS4A":
+                        request.Proxy = Socks4AProxyClient.Parse(proxy);
+                        break;
+                    case "SOCKS5":
+                        request.Proxy = Socks5ProxyClient.Parse(proxy);
+                        break;
+                }
+            }
+
+            // Handle errors
+            try
+            {
+                // Handle response
+                HttpResponse response;
+
+                // Sort method
+                if (method == "GET")
+                {
+                    response = request.Get(URL);
+                }
+                else
+                {
+                    response = request.Post(URL, body);
+                }
+
+                // Assign responses
+                AssignResponses(response);
+
+                // No errors
+                return true;
+            }
+            catch
+            {
+                // Throw error
+                return false;
             }
         }
 
