@@ -1,4 +1,4 @@
-namespace Kotsh.Modules.Block
+﻿namespace Kotsh.Modules.Block
 {
     /// <summary>
     /// Block class

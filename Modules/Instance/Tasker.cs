@@ -1,4 +1,4 @@
-﻿// System
+// System
 using System;
 using System.IO;
 using System.Linq;
@@ -139,7 +139,7 @@ namespace Kotsh.Modules.Instance
                     Response res = function.Invoke(combo);
 
                     // Handle banned or retry
-                    while (res.type == Model.Type.BANNED || res.type == Model.Type.RETRY)
+                    while (res.type == (Model.Type.BANNED | Model.Type.RETRY))
                     {   
                         // Relaunch check
                         res = function.Invoke(combo);
