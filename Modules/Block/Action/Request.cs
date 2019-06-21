@@ -61,7 +61,7 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// Response Object
         /// </summary>
-        public readonly Response response = new Response();
+        public Response response = new Response();
 
         /// <summary>
         /// Block instance
@@ -84,6 +84,12 @@ namespace Kotsh.Modules.Block
         /// <param name="URL">Target URL</param>
         public void Build(string URL)
         {
+            // Reset all
+            this.URL = default;
+            this.method = default;
+            this.body = new RequestParams();
+            this.response = new Response();
+
             // Initialize HttpRequest
             request = new HttpRequest();
 
