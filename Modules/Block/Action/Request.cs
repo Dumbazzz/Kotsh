@@ -12,17 +12,17 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// Plain-text response
         /// </summary>
-        public string data { get; set; }
+        public string data;
 
         /// <summary>
         /// HTTP response code
         /// </summary>
-        public string code { get; set; }
+        public string code;
 
         /// <summary>
         /// Headers with response
         /// </summary>
-        public HttpResponse full { get; set; }
+        public HttpResponse full;
     }
 
     /// <summary>
