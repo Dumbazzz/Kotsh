@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Leaf.xNet;
 
@@ -28,7 +28,7 @@ namespace Kotsh.Modules.Block
     /// <summary>
     /// Request block allows you to call URLs
     /// </summary>
-    public class Request : Block
+    public class Request
     {
         /// <summary>
         /// Available methods
@@ -64,10 +64,25 @@ namespace Kotsh.Modules.Block
         public readonly Response response = new Response();
 
         /// <summary>
+        /// Block instance
+        /// </summary>
+        private Block Block;
+
+        /// <summary>
+        /// Initialize class by storing Block instance
+        /// </summary>
+        /// <param name="block"></param>
+        public Request(Block block)
+        {
+            // Store instance
+            this.Block = block;
+        }
+
+        /// <summary>
         /// Initialize Request class
         /// </summary>
         /// <param name="URL">Target URL</param>
-        public Request(string URL)
+        public void Build(string URL)
         {
             // Initialize HttpRequest
             request = new HttpRequest();

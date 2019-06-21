@@ -7,6 +7,7 @@ using Kotsh.Modules.Console;
 using Kotsh.Modules.IO;
 using Kotsh.Modules.Instance;
 using Kotsh.Modules.Filter;
+using Kotsh.Modules.Block;
 
 // Kotsh namespace
 namespace Kotsh
@@ -23,6 +24,7 @@ namespace Kotsh
         public FileHelper FileHelper;
         public Tasker Tasker;
         public Handler Handler;
+        public Block Block;
 
         /// <summary>
         /// Status of the checker
@@ -90,6 +92,7 @@ namespace Kotsh
             this.FileHelper = new FileHelper(this);
             this.Tasker = new Tasker(this);
             this.Handler = new Handler(this);
+            this.Block = new Block(this);
         }
     }
 }
