@@ -72,6 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Kotsh.cs" />
+    <Compile Include="Modules\Block\Action\Request.cs" />
+    <Compile Include="Modules\Block\Block.cs" />
     <Compile Include="Modules\Console\Console.cs" />
     <Compile Include="Modules\Console\Input.cs" />
     <Compile Include="Modules\Console\Level.cs" />
@@ -88,6 +90,9 @@
     <None Include="README.md">
       <SubType>Component</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\Block\Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
