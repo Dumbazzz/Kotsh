@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,6 +27,11 @@ namespace Kotsh.Modules.Instance
         private int proxy_i = 0;
 
         /// <summary>
+        /// Proxy Regex
+        /// </summary>
+        private string proxyRegex = @"\d{1,3}(\.\d{1,3}){3}:\d{1,5}";
+
+        /// <summary>
         /// Store the core instance
         /// </summary>
         /// <param name="core">Kotsh instance</param>
@@ -48,13 +54,26 @@ namespace Kotsh.Modules.Instance
             }
 
             // Get proxy
-            string proxy = core.Proxies.Keys[this.proxy_i] + ":" + core.Proxies[this.proxy_i];
+            string host = core.Proxies.Keys[this.proxy_i];
+            string port = core.Proxies.Get(host);
+
+            // Associate proxy
+            string proxy = host + ":" + port;
 
             // Increment proxy
             this.proxy_i++;
 
-            // Return proxy
-            return proxy;
+            // Parse proxy
+            Match match = Regex.Match(proxy, proxyRegex);
+            if (match.Success)
+            {
+                return match.Groups[0].Value;
+            }
+            else
+            {
+                // Recursive call
+                return GetProxy();
+            }
         }
 
         /// <summary>
