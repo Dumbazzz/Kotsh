@@ -1,5 +1,6 @@
-// System
+﻿// System
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -155,6 +156,78 @@ namespace Kotsh.Modules.Instance
                     core.Console.UpdateRunningConsole();
                 }
             );
+
+            // Set on finished
+            core.status = 2;
+
+            // Update title
+            core.Program.UpdateTitle();
+        }
+
+        /// <summary>
+        /// Support used for infinite loops
+        /// </summary>
+        /// <returns>Boolean</returns>
+        private IEnumerable<bool> Infinite()
+        {
+            while (true)
+            {
+                yield return true;
+            }
+        }
+
+        /// <summary>
+        /// Execute function into a infinite loop
+        /// </summary>
+        /// <param name="function">Checking function</param>
+        public void RunInfinite(Func<Response> function)
+        {
+            // Get threads count
+            int threads = int.Parse(core.runStats.Get("threads"));
+
+            // Store line 
+            // TODO: Actually set on max int value
+            core.runStats["count"] = int.MaxValue.ToString();
+
+            // Set on started
+            core.status = 1;
+
+            // Start progression bar
+            core.Console.StartRun();
+
+            // Assign threads
+            Parallel.ForEach(
+                // Infinite stream
+                Infinite(),
+                // Parallel Options
+                new ParallelOptions
+                {
+                    // Max threads 
+                    MaxDegreeOfParallelism = threads
+                },
+                // Arguments
+                new Action<bool>((val) => 
+                {
+                    // Execute combo
+                    Response res = function.Invoke();
+
+                    // Handle banned or retry
+                    while (res.type == (Model.Type.BANNED | Model.Type.RETRY))
+                    {
+                        // Relaunch check
+                        res = function.Invoke();
+                    } 
+
+                    // Call response handler
+                    core.Handler.Check(res);
+
+                    // Update title
+                    core.Program.UpdateTitle();
+
+                    // Update stats
+                    core.Console.UpdateRunningConsole();
+                }
+            ));
 
             // Set on finished
             core.status = 2;
