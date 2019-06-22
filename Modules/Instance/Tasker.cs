@@ -80,7 +80,7 @@ namespace Kotsh.Modules.Instance
         /// Check every combo using multi-threading
         /// </summary>
         /// <param name="function">Checking function</param>
-        public void Run(Func<string, Response> function)
+        public void RunCombo(Func<string, Response> function)
         {
             // Open file stream
             var stream = File.ReadLines(core.runSettings["combolist"]);
