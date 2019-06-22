@@ -98,28 +98,8 @@ namespace Kotsh.Modules.Instance
             // Start progression bar
             core.Console.StartRun();
 
-            // Start CPM calculator thread
-            new Thread(() =>
-            {
-                // While checking
-                while (core.status == 1)
-                {
-                    // Get initial checks
-                    int initial_check = int.Parse(core.runStats["checked"]);
-
-                    // Wait 2 seconds
-                    Thread.Sleep(2000);
-
-                    // Get actual checks
-                    int actual_check = int.Parse(core.runStats["checked"]);
-
-                    // Calculate it
-                    int cpm = (actual_check - initial_check) * 30;
-
-                    // Assign CPM
-                    core.runStats["cpm"] = cpm.ToString();
-                }
-            }).Start();
+            // Log CPM
+            RegisterCPM();
 
             // Assign threads
             Parallel.ForEach(
@@ -195,6 +175,9 @@ namespace Kotsh.Modules.Instance
             // Start progression bar
             core.Console.StartRun();
 
+            // Log CPM
+            RegisterCPM();
+
             // Assign threads
             Parallel.ForEach(
                 // Infinite stream
@@ -234,6 +217,35 @@ namespace Kotsh.Modules.Instance
 
             // Update title
             core.Program.UpdateTitle();
+        }
+
+        /// <summary>
+        /// Starts a thread to log CPM
+        /// </summary>
+        private void RegisterCPM()
+        {
+            // Start CPM calculator thread
+            new Thread(() =>
+            {
+                // While checking
+                while (core.status == 1)
+                {
+                    // Get initial checks
+                    int initial_check = int.Parse(core.runStats["checked"]);
+
+                    // Wait 2 seconds
+                    Thread.Sleep(2000);
+
+                    // Get actual checks
+                    int actual_check = int.Parse(core.runStats["checked"]);
+
+                    // Calculate it
+                    int cpm = (actual_check - initial_check) * 30;
+
+                    // Assign CPM
+                    core.runStats["cpm"] = cpm.ToString();
+                }
+            }).Start();
         }
     }
 }
