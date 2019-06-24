@@ -186,14 +186,16 @@ namespace Kotsh.Modules.Console
  Free   : {1}
  Custom : {2}
  Expired: {3}
- Banned : {4}
- Retry  : {5}
- CPM    : {6}
+ Fail   : {4}
+ Banned : {5}
+ Retry  : {6}
+ CPM    : {7}
             ", new string[] { // Replacement values
                 core.runStats["hits"],
                 core.runStats["free"],
                 core.runStats["custom"],
                 core.runStats["expired"],
+                core.runStats["fail"],
                 core.runStats["banned"],
                 core.runStats["retry"],
                 core.runStats["cpm"]
