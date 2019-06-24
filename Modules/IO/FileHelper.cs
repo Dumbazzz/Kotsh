@@ -12,14 +12,19 @@ namespace Kotsh.Modules.IO
         private Manager core;
 
         /// <summary>
-        /// Default opening directory
+        /// Execution directory
         /// </summary>
-        private String directory = Directory.GetCurrentDirectory();
+        private readonly string directory = Directory.GetCurrentDirectory();
+
+        /// <summary>
+        /// Default and last opened directory
+        /// </summary>
+        private string last_directory = Directory.GetCurrentDirectory();
 
         /// <summary>
         /// This variable contains last chosen file
         /// </summary>
-        public String filepath;
+        public string filepath;
 
         /// <summary>
         /// Store the core instance
@@ -31,13 +36,13 @@ namespace Kotsh.Modules.IO
             this.core = core;
         }
 
-        public void ChooseFile(String title, String fileType)
+        public void ChooseFile(string title, string fileType)
         {
             // Open file chooser instance
             OpenFileDialog ofd = new OpenFileDialog
             {
                 // Setup file chooser
-                InitialDirectory = directory,
+                InitialDirectory = last_directory,
                 Filter = fileType,
                 FilterIndex = 0,
                 RestoreDirectory = true,
@@ -51,7 +56,7 @@ namespace Kotsh.Modules.IO
                 this.filepath = ofd.FileName;
 
                 // Save directory used
-                this.directory = Path.GetDirectoryName(this.filepath);
+                this.last_directory = Path.GetDirectoryName(this.filepath);
             }
             else
             {
@@ -76,14 +81,35 @@ namespace Kotsh.Modules.IO
         /// Will execute a lambda function for each line of the file
         /// </summary>
         /// <param name="function">Lambda function</param>
-        public void Execute(Func<String, int> function)
+        public void Execute(Func<string, int> function)
         {
             // Read file line by line
             var lines = File.ReadLines(this.filepath);
-            foreach (String line in lines)
+            foreach (string line in lines)
             {
                 // Execute lambda function
                 function.Invoke(line);
+            }
+        }
+
+        /// <summary>
+        /// Save a file in the session folder
+        /// </summary>
+        /// <param name="name">File name with extension</param>
+        /// <param name="data">Data to push in the file</param>
+        public void SaveSingleFile(string name, string data)
+        {
+            // Create file path
+            string path = directory + "\\results\\" + core.runSettings["session_folder"] + "\\" + name + ".txt";
+
+            // Write text file
+            using (var sw = new StreamWriter(path, true))
+            {
+                // Write into the file
+                sw.Write(data);
+
+                // Close the writer
+                sw.Close();
             }
         }
     }
