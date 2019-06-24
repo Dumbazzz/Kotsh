@@ -1,4 +1,6 @@
-﻿namespace Kotsh.Modules.Block
+﻿using Kotsh.Modules.Block.Util;
+
+namespace Kotsh.Modules.Block
 {
     /// <summary>
     /// Block class
@@ -16,6 +18,11 @@
         public Request Request;
 
         /// <summary>
+        /// Utilities blocks
+        /// </summary>
+        public StringUtil StringUtil;
+
+        /// <summary>
         /// Store core instance and initialize blocks
         /// </summary>
         /// <param name="core">Kotsh instance</param>
@@ -26,6 +33,7 @@
 
             // Start instances
             this.Request = new Request(this);
+            this.StringUtil = new StringUtil(this);
         }
     }
 }
