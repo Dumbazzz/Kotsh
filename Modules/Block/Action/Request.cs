@@ -193,6 +193,9 @@ namespace Kotsh.Modules.Block
                 }
             }
 
+            // Ignore HTTP status codes
+            request.IgnoreProtocolErrors = true;
+
             // Handle errors
             try
             {
