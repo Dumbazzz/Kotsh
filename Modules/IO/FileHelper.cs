@@ -127,7 +127,14 @@ namespace Kotsh.Modules.IO
             // Open web client
             using (WebClient webClient = new WebClient())
             {
-                webClient.DownloadFile(URL, path);
+                try
+                {
+                    webClient.DownloadFile(URL, path);
+                }
+                catch (Exception)
+                {
+                    // Ignore errors
+                }
             }
         }
     }
