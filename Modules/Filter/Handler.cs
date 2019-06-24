@@ -118,6 +118,38 @@ namespace Kotsh.Modules.Filter
                     }
                     break;
             }
+
+            // Update title
+            core.Program.UpdateTitle();
+
+            // Use progression bar or normal display
+            if (System.Boolean.Parse(core.settings["UseProgression"]))
+            {
+                // Update stats
+                core.Console.UpdateRunningConsole();
+            }
+            else
+            {
+                // Display stats
+                switch (response.type)
+                {
+                    case Type.HIT:
+                        core.Console.Push(Console.Level.SUCCESS, "HITS | " + line);
+                        break;
+                    case Type.FREE:
+                        core.Console.Push(Console.Level.INFO, "FREE | " + line);
+                        break;
+                    case Type.FAIL:
+                        core.Console.Push(Console.Level.WARNING, "FAIL | " +  line);
+                        break;
+                    case Type.CUSTOM:
+                        core.Console.Push(Console.Level.INFO, "CUSTOM | " + line);
+                        break;
+                    case Type.EXPIRED:
+                        core.Console.Push(Console.Level.INFO, "EXPIRED | " + line);
+                        break;
+                }
+            }
         }
 
         private void IncrementStats(Type type)

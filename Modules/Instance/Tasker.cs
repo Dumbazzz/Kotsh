@@ -172,8 +172,12 @@ namespace Kotsh.Modules.Instance
             // Set on started
             core.status = 1;
 
-            // Start progression bar
-            core.Console.StartRun();
+            // Check if we use progress
+            if (Boolean.Parse(core.settings["UseProgression"]))
+            {
+                // Start progression bar
+                core.Console.StartRun();
+            }
 
             // Log CPM
             RegisterCPM();
@@ -203,12 +207,6 @@ namespace Kotsh.Modules.Instance
 
                     // Call response handler
                     core.Handler.Check(res);
-
-                    // Update title
-                    core.Program.UpdateTitle();
-
-                    // Update stats
-                    core.Console.UpdateRunningConsole();
                 }
             ));
 
