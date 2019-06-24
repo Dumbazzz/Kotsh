@@ -35,7 +35,7 @@ namespace Kotsh.Modules.Filter
         /// <summary>
         /// Check and makes folder to store results
         /// </summary>
-        private void MakeFolders()
+        public void MakeFolders()
         {
             // Check result direct
             if (!Directory.Exists(dir + "\\results"))
@@ -54,9 +54,6 @@ namespace Kotsh.Modules.Filter
 
         private void StoreResult(string file, string line)
         {
-            // Check and make folders
-            this.MakeFolders();
-
             // File path
             string path = dir + "\\results\\" + core.runSettings["session_folder"] + "\\" + file + ".txt";
 

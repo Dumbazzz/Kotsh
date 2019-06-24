@@ -41,7 +41,7 @@ namespace Kotsh.Modules.Program
         /// Generate a random ID (0.001% duplicate in 100M)
         /// </summary>
         /// <returns>random ID</returns>
-        private string MakeId()
+        public string MakeId()
         {
             // Start builder
             StringBuilder builder = new StringBuilder();
@@ -87,6 +87,9 @@ namespace Kotsh.Modules.Program
 
             // Update title
             this.UpdateTitle();
+
+            // Check and make session folders
+            core.Handler.MakeFolders();
         }
 
         public void UpdateTitle()
