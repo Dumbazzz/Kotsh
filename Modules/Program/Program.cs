@@ -24,7 +24,7 @@ namespace Kotsh.Modules.Program
         {
             { "idleTitle", "%name% by %author% | v%version% | Idling" },
             { "runningTitle", "%name% | Hits: %hits% - CPM: %cpm% - Fail: %fail% - Bans: %banned% | Running" },
-            { "endTitle", "%name% | Hits: %hits% - CPM: %cpm% - Fail: %fail% - Bans: %banned% | Running" }
+            { "endTitle", "%name% | Hits: %hits% - CPM: %cpm% - Fail: %fail% - Bans: %banned% | Finished" }
         };
 
         /// <summary>
