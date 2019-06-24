@@ -96,7 +96,13 @@ namespace Kotsh.Modules.Filter
             }
 
             // Render file
-            string line = response.combo + " | " + capture;
+            string line = response.combo;
+
+            // Add capture
+            if (capture.Length > 1)
+            {
+                line += " | " + capture;
+            }
 
             // Check type
             switch (response.type)
