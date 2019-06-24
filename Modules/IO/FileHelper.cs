@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Kotsh.Modules.IO
@@ -110,6 +111,23 @@ namespace Kotsh.Modules.IO
 
                 // Close the writer
                 sw.Close();
+            }
+        }
+
+        /// <summary>
+        /// Download a file from URL
+        /// </summary>
+        /// <param name="URL">Target URL</param>
+        /// <param name="target">Target file with extension</param>
+        public void DownloadFile(string URL, string target)
+        {
+            // Create file path
+            string path = directory + "\\results\\" + core.runSettings["session_folder"] + "\\" + target;
+
+            // Open web client
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.DownloadFile(URL, path);
             }
         }
     }
