@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using ColorConsole = Colorful.Console;
 
 namespace Kotsh.Modules.Console
@@ -33,28 +34,44 @@ namespace Kotsh.Modules.Console
         private Konsole.ProgressBar pbar;
 
         /// <summary>
+        /// Write on Lock security (safe threading)
+        /// </summary>
+        private ReaderWriterLockSlim consoleLock = new ReaderWriterLockSlim();
+
+        /// <summary>
         /// Push a specific message with a certain level
         /// </summary>
         /// <param name="level"></param>
         /// <param name="message"></param>
         public void Push(Level level, String message)
         {
-            // Use right method according to level
-            switch(level)
+            // Lock before pushing
+            consoleLock.EnterWriteLock();
+
+            try
             {
-                default:
-                case Level.INFO:
-                    this.Info(message);
-                    break;
-                case Level.WARNING:
-                    this.Warning(message);
-                    break;
-                case Level.DANGER:
-                    this.Danger(message);
-                    break;
-                case Level.SUCCESS:
-                    this.Success(message);
-                    break;
+                // Use right method according to level
+                switch (level)
+                {
+                    default:
+                    case Level.INFO:
+                        this.Info(message);
+                        break;
+                    case Level.WARNING:
+                        this.Warning(message);
+                        break;
+                    case Level.DANGER:
+                        this.Danger(message);
+                        break;
+                    case Level.SUCCESS:
+                        this.Success(message);
+                        break;
+                }
+            }
+            finally
+            {
+                // Release lock
+                consoleLock.ExitWriteLock();
             }
         }
 
