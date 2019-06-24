@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Drawing;
-using System.Threading;
 using ColorConsole = Colorful.Console;
 
 namespace Kotsh.Modules.Console
@@ -137,24 +136,19 @@ namespace Kotsh.Modules.Console
             ColorConsole.SetCursorPosition((System.Console.WindowWidth - core.Program.name.Length) / 2, System.Console.CursorTop);
 
             // Write program name
-            ColorConsole.WriteWithGradient(core.Program.name, Color.Yellow, Color.Fuchsia, 14);
+            ColorConsole.WriteLine(core.Program.name, Color.Orange);
             
             // Break line
             ColorConsole.WriteLine();
 
             // Format author and version
-            string subtitle = "Version: {0} | Author: {1}";
-            string[] replacements = new string[]
-            {
-                core.Program.version,
-                core.Program.author
-            };
+            string subtitle = string.Format("Version: {0} | Author: {1}", core.Program.version, core.Program.author);
 
             // Center message
-            ColorConsole.SetCursorPosition((System.Console.WindowWidth - String.Format(subtitle, replacements).Length) / 2, System.Console.CursorTop);
+            ColorConsole.SetCursorPosition((System.Console.WindowWidth - subtitle.Length) / 2, System.Console.CursorTop);
 
             // Display author and version
-            ColorConsole.WriteLineFormatted(subtitle, Color.OrangeRed, Color.Gray, replacements);
+            ColorConsole.WriteLine(subtitle, Color.Lime);
 
             // Break line
             ColorConsole.WriteLine();
