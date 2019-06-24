@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Threading;
 using ColorConsole = Colorful.Console;
@@ -93,7 +93,7 @@ namespace Kotsh.Modules.Console
         private void Warning(String message)
         {
             // Write header
-            ColorConsole.Write(GetHeader("WARNING"), Color.Yellow);
+            ColorConsole.Write(GetHeader("WARNING"), Color.Orange);
 
             // Write message
             ColorConsole.WriteLine(message, Color.WhiteSmoke);
