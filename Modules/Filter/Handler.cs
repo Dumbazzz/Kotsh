@@ -1,6 +1,7 @@
 ﻿using Kotsh.Modules.Model;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace Kotsh.Modules.Filter
@@ -86,10 +87,11 @@ namespace Kotsh.Modules.Filter
             var items = response.capture.AllKeys.SelectMany(response.capture.GetValues, (k, v) => new { key = k, value = v });
 
             // Render capture
-            string capture = "";
+            StringBuilder capture = new StringBuilder();
             foreach (var item in items)
             {
-                capture += item.key.ToUpper() + "=" + item.value;
+                // Append
+                capture.Append(item.key.ToUpper() + "=" + item.value);
             }
 
             // Render file
