@@ -28,11 +28,21 @@ namespace Kotsh.Modules.Block.Util
         /// Generate a random string with possible letters
         /// </summary>
         /// <param name="length">String length</param>
-        /// <returns></returns>
+        /// <returns>Random String</returns>
         public string RandomString(string chars, int length)
         {
             return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
+        /// <summary>
+        /// Generate a random integer between a minimum and a maximum value
+        /// </summary>
+        /// <param name="min">Min value</param>
+        /// <param name="max">Max value</param>
+        /// <returns>Random Int</returns>
+        public int RandomInt(int min, int max)
+        {
+            return random.Next(min, max);
+        }
     }
 }
