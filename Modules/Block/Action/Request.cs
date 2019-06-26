@@ -56,7 +56,7 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// POST body
         /// </summary>
-        private RequestParams body = new RequestParams();
+        private StringContent body;
 
         /// <summary>
         /// Response Object
@@ -87,7 +87,7 @@ namespace Kotsh.Modules.Block
             // Reset all
             this.URL = default;
             this.method = default;
-            this.body = new RequestParams();
+            this.body = new StringContent("");
             this.response = new Response();
 
             // Initialize HttpRequest
@@ -121,10 +121,10 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// Add a single param input
         /// </summary>
-        public void AddBody(string key, string value)
+        public void AddBody(string body)
         {
-            // Add input
-            body[key] = value;
+            // Append body
+            this.body = new StringContent(body, System.Text.Encoding.UTF8);
         }
 
         /// <summary>
