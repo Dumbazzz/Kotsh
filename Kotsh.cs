@@ -86,7 +86,7 @@ namespace Kotsh
             { "FileSave_expired", "true" }, // Save expired hits into a single file
 
             // Console
-            { "UseProgression"  , "true" } // Display progression using ProgressBar
+            { "UseProgression"  , "false" } // Display progression using ProgressBar
         };
 
         /// <summary>
