@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Leaf.xNet;
 
@@ -23,6 +23,27 @@ namespace Kotsh.Modules.Block
         /// Headers with response
         /// </summary>
         public HttpResponse full;
+    }
+
+    /// <summary>
+    /// Supported content types
+    /// </summary>
+    public enum ContentType
+    {
+        /// <summary>
+        /// Correspond to: text/plain
+        /// </summary>
+        PLAIN,
+
+        /// <summary>
+        /// Correspond to: application/json
+        /// </summary>
+        JSON,
+
+        /// <summary>
+        /// Correspond to: application/x-www-form-urlencoded
+        /// </summary>
+        FORM
     }
 
     /// <summary>
@@ -121,10 +142,28 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// Add a single param input
         /// </summary>
-        public void AddBody(string body)
+        /// <param name="body">POST body</param>
+        /// <param name="content_type">HTTP Content-Type header</param>
+        public void AddBody(string body, ContentType content_type)
         {
             // Append body
             this.body = new StringContent(body, System.Text.Encoding.UTF8);
+
+            // Set corresponding content type
+            switch (content_type)
+            {
+                case ContentType.PLAIN:
+                    AddHeader("Content-Type", "text/plain");
+                    break;
+
+                case ContentType.JSON:
+                    AddHeader("Content-Type", "application/json");
+                    break;
+
+                case ContentType.FORM:
+                    AddHeader("Content-Type", "application/x-www-form-urlencoded");
+                    break;
+            }
         }
 
         /// <summary>
