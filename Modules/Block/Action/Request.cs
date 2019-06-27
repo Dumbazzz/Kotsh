@@ -174,7 +174,7 @@ namespace Kotsh.Modules.Block
         public void AddHeader(string key, string value)
         {
             // Add header
-            request.AddHeader(key, value);
+            request[key] = value;
         }
 
         /// <summary>
