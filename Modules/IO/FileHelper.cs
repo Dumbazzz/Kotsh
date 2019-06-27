@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Kotsh.Modules.IO
 {
@@ -37,6 +38,11 @@ namespace Kotsh.Modules.IO
             this.core = core;
         }
 
+        /// <summary>
+        /// Allow you to choose a file using Windows File Chooser
+        /// </summary>
+        /// <param name="title">Title of the Windows Frame</param>
+        /// <param name="fileType">File type (example: "Text (.txt)|*.txt")</param>
         public void ChooseFile(string title, string fileType)
         {
             // Open file chooser instance
@@ -135,6 +141,52 @@ namespace Kotsh.Modules.IO
                 {
                     // Ignore errors
                 }
+            }
+        }
+
+        /// <summary>
+        /// Automatically loads a combolist
+        /// </summary>
+        public void LoadCombolist()
+        {
+            // Choose a file
+            ChooseFile("Select a combolist", "Combolist (.txt)|*.txt");
+
+            // Save file
+            core.runSettings["combolist"] = filepath;
+        }
+
+        /// <summary>
+        /// Automatically loads a combolist
+        /// </summary>
+        /// <param name="protocol">Proxy Protocol (HTTP, SOCKS4, SOCKS4A or SOCKS5)</param>
+        public void LoadProxylist(string protocol)
+        {
+            // Choose the proxylist
+            ChooseFile("Select a proxylist", "Proxylist (.txt)|*.txt");
+
+            // Execute line by line
+            Execute((line) =>
+            {
+                // Split line
+                string host = line.Split(':')[0];
+                string port = line.Split(':')[1];
+
+                // Store proxy
+                core.Proxies.Add(host, port);
+
+                // Exit lambda
+                return 0;
+            });
+
+            // Set protocol
+            if (core.ProxiesProtocols.Contains(protocol))
+            {
+                core.runSettings["ProxyProtocol"] = protocol;
+            }
+            else
+            {
+                core.Console.Push(Console.Level.DANGER, "Unsupported proxy protocol: " + protocol);
             }
         }
     }

@@ -74,6 +74,17 @@ namespace Kotsh
         public NameValueCollection Proxies = new NameValueCollection();
 
         /// <summary>
+        /// Supported protocols for proxies
+        /// </summary>
+        public string[] ProxiesProtocols = new[]
+        {
+            "HTTP",
+            "SOCKS4",
+            "SOCKS4A",
+            "SOCKS5"
+        };
+
+        /// <summary>
         /// Default settings
         /// </summary>
         public NameValueCollection settings = new NameValueCollection()
