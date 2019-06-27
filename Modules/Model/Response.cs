@@ -10,12 +10,12 @@ namespace Kotsh.Modules.Model
         /// <summary>
         /// Response type (hit, free, fail, retry, etc...)
         /// </summary>
-        public Type type;
+        public Type type { get; set; }
 
         /// <summary>
         /// Combo used for the check
         /// </summary>
-        public string combo;
+        public string combo { get; set; }
 
         /// <summary>
         /// Captured elements for the combo
