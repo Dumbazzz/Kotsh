@@ -16,6 +16,12 @@ namespace Kotsh
     public class Manager
     {
         /// <summary>
+        /// Kotsh details
+        /// </summary>
+        public string version = "0.1";
+        public string releaseMode = "DEV";
+
+        /// <summary>
         /// Kotsh instances
         /// </summary>
         public Program Program;
