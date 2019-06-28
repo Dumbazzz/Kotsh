@@ -157,7 +157,7 @@ namespace Kotsh.Modules.Filter
         private void IncrementStats(Type type)
         {
             // Check count
-            if (type != (Type.BANNED | Type.IGNORED | Type.RETRY))
+            if (type != (Type.BANNED | Type.RETRY))
             {
                 // Increment checked
                 core.runStats["checked"] = (int.Parse(core.runStats["checked"]) + 1).ToString();
@@ -186,9 +186,6 @@ namespace Kotsh.Modules.Filter
                     break;
                 case Type.RETRY:
                     core.runStats["retry"] = (int.Parse(core.runStats["retry"]) + 1).ToString();
-                    break;
-                case Type.IGNORED:
-                    core.runStats["ignored"] = (int.Parse(core.runStats["ignored"]) + 1).ToString();
                     break;
             }
         }

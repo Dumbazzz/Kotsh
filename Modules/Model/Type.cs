@@ -39,11 +39,6 @@
         /// <summary>
         /// The worker meet an error and must restart
         /// </summary>
-        RETRY,
-
-        /// <summary>
-        /// This response will be ignored everywhere
-        /// </summary>
-        IGNORED
+        RETRY
     }
 }
