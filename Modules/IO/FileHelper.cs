@@ -159,8 +159,7 @@ namespace Kotsh.Modules.IO
         /// <summary>
         /// Automatically loads a combolist
         /// </summary>
-        /// <param name="protocol">Proxy Protocol (HTTP, SOCKS4, SOCKS4A or SOCKS5)</param>
-        public void LoadProxylist(string protocol)
+        public void LoadProxylist()
         {
             // Choose the proxylist
             ChooseFile("Select a proxylist", "Proxylist (.txt)|*.txt");
@@ -179,15 +178,10 @@ namespace Kotsh.Modules.IO
                 return 0;
             });
 
-            // Set protocol
-            if (core.ProxiesProtocols.Contains(protocol))
-            {
-                core.runSettings["ProxyProtocol"] = protocol;
-            }
-            else
-            {
-                core.Console.Push(Console.Level.DANGER, "Unsupported proxy protocol: " + protocol);
-            }
+            // Ask and save protocol
+            core.runSettings["ProxyProtocol"] = core.Input.AskChoice("Choose proxy protocol", new string[] {
+                "HTTP", "SOCKS4", "SOCKS4A", "SOCKS5"
+            });
         }
     }
 }
