@@ -202,8 +202,9 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// Set proxy (if defined) and execute action
         /// </summary>
-        /// <returns>Success/Error boolean</returns>
-        public bool Execute()
+        /// <param name="can_be_null">If true, it will accept blank responses</param>
+        /// <param name="auto_retry">Will retry the request on exception</param>
+        public void Execute(bool can_be_null = false, bool auto_retry = true)
         {
             // Check if proxies are used
             if (Block.core.Proxies.Count > 0)
@@ -254,13 +255,26 @@ namespace Kotsh.Modules.Block
                 // Assign responses
                 AssignResponses(response);
 
-                // No errors
-                return true;
+                // Check for errors
+                if (!can_be_null && response.ToString().Length < 1)
+                {
+                    // Increment retry
+                    Block.core.runStats["retry"] = (int.Parse(Block.core.runStats["retry"]) + 1).ToString();
+
+                    // Response is null, relaunching it
+                    Execute();
+                }
             }
             catch
             {
-                // Throw error
-                return false;
+                if (auto_retry)
+                {
+                    // Increment retry
+                    Block.core.runStats["retry"] = (int.Parse(Block.core.runStats["retry"]) + 1).ToString();
+
+                    // Response is null, relaunching it
+                    Execute();
+                }
             }
         }
 
