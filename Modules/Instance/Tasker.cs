@@ -43,6 +43,25 @@ namespace Kotsh.Modules.Instance
         }
 
         /// <summary>
+        /// Return threads in integer (if not set, it will set 1 thread)
+        /// </summary>
+        /// <returns>Thread Count</returns>
+        private int getThreads()
+        {
+            // Check if threads are set
+            if (core.runStats.Get("threads") == null)
+            {
+                // No threads
+                return 1; // Set on 1 thread
+            }
+            else
+            {
+                // Threads are set
+                return int.Parse(core.runStats.Get("threads"));
+            }
+        }
+
+        /// <summary>
         /// Get a proxy and increment progression
         /// </summary>
         /// <returns>Proxy as host:port</returns>
@@ -86,9 +105,6 @@ namespace Kotsh.Modules.Instance
             // Open file stream
             var stream = File.ReadLines(core.runSettings["combolist"]);
 
-            // Get threads count
-            int threads = int.Parse(core.runStats.Get("threads"));
-
             // Store line 
             core.runStats["count"] = stream.Count().ToString();
 
@@ -113,7 +129,7 @@ namespace Kotsh.Modules.Instance
                 new ParallelOptions
                 {
                     // Max threads 
-                    MaxDegreeOfParallelism = threads
+                    MaxDegreeOfParallelism = getThreads()
 
                     // Combo => Line
                     // Controller => Parallel control variable
@@ -160,9 +176,6 @@ namespace Kotsh.Modules.Instance
         /// <param name="function">Checking function</param>
         public void RunInfinite(Func<Response> function)
         {
-            // Get threads count
-            int threads = int.Parse(core.runStats.Get("threads"));
-
             // Store line 
             // TODO: Actually set on max int value
             core.runStats["count"] = int.MaxValue.ToString();
@@ -188,7 +201,7 @@ namespace Kotsh.Modules.Instance
                 new ParallelOptions
                 {
                     // Max threads 
-                    MaxDegreeOfParallelism = threads
+                    MaxDegreeOfParallelism = getThreads()
                 },
                 // Arguments
                 new Action<bool>((val) => 
