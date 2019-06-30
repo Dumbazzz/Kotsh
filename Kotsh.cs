@@ -103,7 +103,7 @@ namespace Kotsh
         /// <summary>
         /// Initialize modules
         /// </summary>
-        public Manager(System.Func<Program, Console, Input, FileHelper, Tasker, Handler, Block, int> execution)
+        public Manager(System.Func<Manager, Program, Console, Input, FileHelper, Tasker, Handler, Block, int> execution)
         {
             // Initialize modules
             this.Program = new Program(this);
@@ -115,7 +115,7 @@ namespace Kotsh
             this.Block = new Block(this);
 
             // Execution
-            execution.Invoke(this.Program, this.Console, this.Input, this.FileHelper, this.Tasker, this.Handler, this.Block);
+            execution.Invoke(this, this.Program, this.Console, this.Input, this.FileHelper, this.Tasker, this.Handler, this.Block);
         }
     }
 }
