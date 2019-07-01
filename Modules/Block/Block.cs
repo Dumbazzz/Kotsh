@@ -1,4 +1,5 @@
-﻿using Kotsh.Modules.Block.Util;
+﻿using Kotsh.Modules.Block.Action;
+using Kotsh.Modules.Block.Util;
 
 namespace Kotsh.Modules.Block
 {
@@ -16,6 +17,7 @@ namespace Kotsh.Modules.Block
         /// Blocks availables
         /// </summary>
         public Request Request;
+        public Parse Parse;
 
         /// <summary>
         /// Utilities blocks
@@ -33,6 +35,7 @@ namespace Kotsh.Modules.Block
 
             // Start instances
             this.Request = new Request(this);
+            this.Parse = new Parse(this);
             this.StringUtil = new StringUtil(this);
         }
     }
