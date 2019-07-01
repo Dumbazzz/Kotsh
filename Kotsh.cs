@@ -94,10 +94,7 @@ namespace Kotsh
             { "FileSave_hit"    , "true" }, // Save hits into a single file
             { "FileSave_custom" , "true" }, // Save customs into a single file
             { "FileSave_free"   , "true" }, // Save free into a single file
-            { "FileSave_expired", "true" }, // Save expired hits into a single file
-
-            // Console
-            { "UseProgression"  , "false" } // Display progression using ProgressBar
+            { "FileSave_expired", "true" }  // Save expired hits into a single file
         };
 
         /// <summary>

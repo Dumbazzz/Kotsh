@@ -111,13 +111,6 @@ namespace Kotsh.Modules.Instance
             // Set on started
             core.status = 1;
 
-            // Check if we use progress
-            if (Boolean.Parse(core.settings["UseProgression"]))
-            {
-                // Start progression bar
-                core.Console.StartRun();
-            }
-
             // Log CPM
             RegisterCPM();
 
@@ -182,13 +175,6 @@ namespace Kotsh.Modules.Instance
 
             // Set on started
             core.status = 1;
-
-            // Check if we use progress
-            if (Boolean.Parse(core.settings["UseProgression"]))
-            {
-                // Start progression bar
-                core.Console.StartRun();
-            }
 
             // Log CPM
             RegisterCPM();

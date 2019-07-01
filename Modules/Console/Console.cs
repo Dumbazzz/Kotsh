@@ -29,11 +29,6 @@ namespace Kotsh.Modules.Console
         }
 
         /// <summary>
-        /// Progress bar used for the check
-        /// </summary>
-        private Konsole.ProgressBar pbar;
-
-        /// <summary>
         /// Write on Lock security (safe threading)
         /// </summary>
         private ReaderWriterLockSlim consoleLock = new ReaderWriterLockSlim();
@@ -169,51 +164,6 @@ namespace Kotsh.Modules.Console
 
             // Break line
             ColorConsole.WriteLine();
-        }
-
-        /// <summary>
-        /// Prepare display mode while checking
-        /// </summary>
-        public void StartRun()
-        {
-            // Clear console
-            System.Console.Clear();
-
-            // Display title
-            this.DisplayTitle();
-
-            // Instance progress bar
-            this.pbar = new Konsole.ProgressBar(Konsole.PbStyle.DoubleLine, int.Parse(core.runStats["count"]));
-        }
-
-        /// <summary>
-        /// Display advanced stats during the check
-        /// </summary>
-        public void UpdateRunningConsole()
-        {
-            // Make status text
-            string status = string.Format(@"
- Hits   : {0}
- Free   : {1}
- Custom : {2}
- Expired: {3}
- Fail   : {4}
- Banned : {5}
- Retry  : {6}
- CPM    : {7}
-            ", new string[] { // Replacement values
-                core.runStats["hits"],
-                core.runStats["free"],
-                core.runStats["custom"],
-                core.runStats["expired"],
-                core.runStats["fail"],
-                core.runStats["banned"],
-                core.runStats["retry"],
-                core.runStats["cpm"]
-            });
-
-            // Make progression
-            this.pbar.Refresh(int.Parse(core.runStats["checked"]), status);
         }
     }
 }

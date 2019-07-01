@@ -58,9 +58,6 @@
     <Reference Include="Costura, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>packages\Costura.Fody.4.0.0\lib\net40\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="Goblinfactory.ProgressBar, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Goblinfactory.ProgressBar.0.4.0\lib\netstandard2.0\Goblinfactory.ProgressBar.dll</HintPath>
-    </Reference>
     <Reference Include="Leaf.xNet, Version=5.1.76.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Leaf.xNet.5.1.76\lib\net472\Leaf.xNet.dll</HintPath>
     </Reference>
