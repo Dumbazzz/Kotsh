@@ -106,18 +106,20 @@ namespace Kotsh.Program
                 .Replace("%version%", this.version)
 
                 // Stats
-                .Replace("%cpm%", core.runStats.Get("cpm"))
-                .Replace("%checked%", core.runStats.Get("checked"))
-                .Replace("%remaining%", core.runStats.Get("remaining"))
+                .Replace("%cpm%"      , core.ProgramStatistics.Get("cpm").ToString())
+                .Replace("%checked%"  , core.ProgramStatistics.Get("checked").ToString())
+                .Replace("%remaining%", core.ProgramStatistics.Get("remaining").ToString())
+                .Replace("%count%"    , core.ProgramStatistics.Get("count").ToString())
+                .Replace("%rpm%"      , core.ProgramStatistics.Get("rpm").ToString())       
 
                 // Targets
-                .Replace("%hits%", core.runStats.Get("hits"))
-                .Replace("%free%", core.runStats.Get("free"))
-                .Replace("%custom%", core.runStats.Get("custom"))
-                .Replace("%expired%", core.runStats.Get("expired"))
-                .Replace("%fail%", core.runStats.Get("fail"))
-                .Replace("%banned%", core.runStats.Get("banned"))
-                .Replace("%retry%", core.runStats.Get("retry"));
+                .Replace("%hits%"   , core.RunStatistics.Get(Models.Type.HIT).ToString())
+                .Replace("%free%"   , core.RunStatistics.Get(Models.Type.FREE).ToString())
+                .Replace("%custom%" , core.RunStatistics.Get(Models.Type.CUSTOM).ToString())
+                .Replace("%expired%", core.RunStatistics.Get(Models.Type.EXPIRED).ToString())
+                .Replace("%fail%"   , core.RunStatistics.Get(Models.Type.FAIL).ToString())
+                .Replace("%banned%" , core.RunStatistics.Get(Models.Type.BANNED).ToString())
+                .Replace("%retry%"  , core.RunStatistics.Get(Models.Type.RETRY).ToString());
         }
 
         /// <summary>

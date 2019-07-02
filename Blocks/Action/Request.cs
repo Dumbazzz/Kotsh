@@ -226,7 +226,7 @@ namespace Kotsh.Blocks
                 if (!can_be_null && response.ToString().Length < 1)
                 {
                     // Increment retry
-                    Block.core.runStats["retry"] = (int.Parse(Block.core.runStats["retry"]) + 1).ToString();
+                    Block.core.RunStatistics.Increment(Type.RETRY);
 
                     // Response is null, relaunching it
                     Execute(true);
@@ -237,7 +237,7 @@ namespace Kotsh.Blocks
                 if (auto_retry)
                 {
                     // Increment retry
-                    Block.core.runStats["retry"] = (int.Parse(Block.core.runStats["retry"]) + 1).ToString();
+                    Block.core.RunStatistics.Increment(Type.RETRY);
 
                     // Response is null, relaunching it
                     Execute();

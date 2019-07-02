@@ -82,7 +82,7 @@ namespace Kotsh.Filter
         public void Check(Response response)
         {
             // Increment stats
-            this.IncrementStats(response.type);
+            core.RunStatistics.Increment(response.type);
 
             // Get capture
             var items = response.capture.AllKeys.SelectMany(response.capture.GetValues, (k, v) => new { key = k, value = v });
@@ -142,42 +142,6 @@ namespace Kotsh.Filter
                     break;
                 case Type.EXPIRED:
                     core.Console.Push(Level.INFO, "EXPIRED | " + line);
-                    break;
-            }
-        }
-
-        private void IncrementStats(Type type)
-        {
-            // Check count
-            if (type != (Type.BANNED | Type.RETRY))
-            {
-                // Increment checked
-                core.runStats["checked"] = (int.Parse(core.runStats["checked"]) + 1).ToString();
-            }
-
-            // Type specific
-            switch (type)
-            {
-                case Type.HIT:
-                    core.runStats["hits"] = (int.Parse(core.runStats["hits"]) + 1).ToString();
-                    break;
-                case Type.FREE:
-                    core.runStats["free"] = (int.Parse(core.runStats["free"]) + 1).ToString();
-                    break;
-                case Type.FAIL:
-                    core.runStats["fail"] = (int.Parse(core.runStats["fail"]) + 1).ToString();
-                    break;
-                case Type.CUSTOM:
-                    core.runStats["custom"] = (int.Parse(core.runStats["custom"]) + 1).ToString();
-                    break;
-                case Type.EXPIRED:
-                    core.runStats["expired"] = (int.Parse(core.runStats["expired"]) + 1).ToString();
-                    break;
-                case Type.BANNED:
-                    core.runStats["banned"] = (int.Parse(core.runStats["banned"]) + 1).ToString();
-                    break;
-                case Type.RETRY:
-                    core.runStats["retry"] = (int.Parse(core.runStats["retry"]) + 1).ToString();
                     break;
             }
         }

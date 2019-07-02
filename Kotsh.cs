@@ -8,6 +8,7 @@ using Kotsh.IO;
 using Kotsh.Instance;
 using Kotsh.Filter;
 using Kotsh.Blocks;
+using Kotsh.Statistics;
 
 // Kotsh namespace
 namespace Kotsh
@@ -33,6 +34,12 @@ namespace Kotsh
         public Block Block;
 
         /// <summary>
+        /// Non-user accessibles instances
+        /// </summary>
+        public RunStatistics RunStatistics;
+        public ProgramStatistics ProgramStatistics;
+
+        /// <summary>
         /// Status of the checker
         /// 
         /// 0 = Idle
@@ -42,30 +49,16 @@ namespace Kotsh
         public int status = 0;
 
         /// <summary>
+        /// Thread count
+        /// </summary>
+        public int threads = 1;
+
+        /// <summary>
         /// Settings used for the run
         /// </summary>
         public NameValueCollection runSettings = new NameValueCollection()
         {
             { "ProxyProtocol", "HTTP" }
-        };
-
-        /// <summary>
-        /// Stats during the run
-        /// </summary>
-        public NameValueCollection runStats = new NameValueCollection()
-        {
-            // Default values
-            { "cpm"      , "0" },
-            { "checked"  , "0" },
-            { "remaining", "0" },
-            { "hits"     , "0" },
-            { "free"     , "0" },
-            { "custom"   , "0" },
-            { "expired"  , "0" },
-            { "fail"     , "0" },
-            { "banned"   , "0" },
-            { "retry"    , "0" },
-            { "ignored"  , "0" }
         };
 
         /// <summary>
@@ -110,6 +103,8 @@ namespace Kotsh
             this.Tasker = new Tasker(this);
             this.Handler = new Handler(this);
             this.Block = new Block(this);
+            this.RunStatistics = new RunStatistics(this);
+            this.ProgramStatistics = new ProgramStatistics(this);
 
             // Execution
             execution.Invoke(this, this.Program, this.Console, this.Input, this.FileHelper, this.Tasker, this.Handler, this.Block);

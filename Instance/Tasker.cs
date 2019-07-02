@@ -1,4 +1,4 @@
-// System
+﻿// System
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,15 +49,15 @@ namespace Kotsh.Instance
         private int GetThreads()
         {
             // Check if threads are set
-            if (core.runStats.Get("threads") == null)
+            if (!Enumerable.Range(1, 1000).Contains(core.threads)) // Limit on 1k thread
             {
-                // No threads
+                // Wrong thread number
                 return 1; // Set on 1 thread
             }
             else
             {
                 // Threads are set
-                return int.Parse(core.runStats.Get("threads"));
+                return core.threads;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Kotsh.Instance
             var stream = File.ReadLines(core.runSettings["combolist"]);
 
             // Store line 
-            core.runStats["count"] = stream.Count().ToString();
+            core.ProgramStatistics.SetCount(stream.Count());
 
             // Set on started
             core.status = 1;
@@ -175,7 +175,7 @@ namespace Kotsh.Instance
         {
             // Store line 
             // TODO: Actually set on max int value
-            core.runStats["count"] = int.MaxValue.ToString();
+            core.ProgramStatistics.SetCount(int.MaxValue);
 
             // Set on started
             core.status = 1;
@@ -229,20 +229,8 @@ namespace Kotsh.Instance
                 // While checking
                 while (core.status == 1)
                 {
-                    // Get initial checks
-                    int initial_check = int.Parse(core.runStats["checked"]);
-
-                    // Wait 2 seconds
-                    Thread.Sleep(2000);
-
-                    // Get actual checks
-                    int actual_check = int.Parse(core.runStats["checked"]);
-
-                    // Calculate it
-                    int cpm = (actual_check - initial_check) * 30;
-
-                    // Assign CPM
-                    core.runStats["cpm"] = cpm.ToString();
+                    // Get CPM
+                    core.ProgramStatistics.GetCPM();
                 }
             });
         }

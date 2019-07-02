@@ -84,6 +84,8 @@
     <Compile Include="Blocks\Util\Source.cs" />
     <Compile Include="Blocks\Util\StringUtil.cs" />
     <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Statistics\ProgramStatistics.cs" />
+    <Compile Include="Statistics\RunStatistics.cs" />
     <Compile Include="Window\Console.cs" />
     <Compile Include="Window\Input.cs" />
     <Compile Include="Models\Level.cs" />
