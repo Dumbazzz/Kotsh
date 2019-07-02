@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Kotsh.Modules.Block.Util
+namespace Kotsh.Blocks.Util
 {
     public class StringUtil
     {

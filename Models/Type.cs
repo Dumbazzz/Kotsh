@@ -1,4 +1,4 @@
-﻿namespace Kotsh.Modules.Model
+﻿namespace Kotsh.Models
 {
     public enum Type
     {

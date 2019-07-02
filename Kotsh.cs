@@ -2,12 +2,12 @@
 using System.Collections.Specialized;
 
 // Modules
-using Kotsh.Modules.Program;
-using Kotsh.Modules.Console;
-using Kotsh.Modules.IO;
-using Kotsh.Modules.Instance;
-using Kotsh.Modules.Filter;
-using Kotsh.Modules.Block;
+using Kotsh.Program;
+using Kotsh.Window;
+using Kotsh.IO;
+using Kotsh.Instance;
+using Kotsh.Filter;
+using Kotsh.Blocks;
 
 // Kotsh namespace
 namespace Kotsh
@@ -24,7 +24,7 @@ namespace Kotsh
         /// <summary>
         /// Kotsh instances
         /// </summary>
-        public Program Program;
+        public ProgramManager Program;
         public Console Console;
         public Input Input;
         public FileHelper FileHelper;
@@ -100,10 +100,10 @@ namespace Kotsh
         /// <summary>
         /// Initialize modules
         /// </summary>
-        public Manager(System.Func<Manager, Program, Console, Input, FileHelper, Tasker, Handler, Block, int> execution)
+        public Manager(System.Func<Manager, ProgramManager, Console, Input, FileHelper, Tasker, Handler, Block, int> execution)
         {
             // Initialize modules
-            this.Program = new Program(this);
+            this.Program = new ProgramManager(this);
             this.Console = new Console(this);
             this.Input = new Input(this);
             this.FileHelper = new FileHelper(this);

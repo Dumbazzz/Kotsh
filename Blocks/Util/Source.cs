@@ -1,6 +1,6 @@
 ﻿using Leaf.xNet;
 
-namespace Kotsh.Modules.Block.Util
+namespace Kotsh.Blocks.Util
 {
     public class Source
     {
@@ -30,12 +30,12 @@ namespace Kotsh.Modules.Block.Util
         /// <summary>
         /// Response data
         /// </summary>
-        public string data { get; set; }
+        public string data { get; set; } = "";
 
         /// <summary>
         /// HTTP Status
         /// </summary>
-        public string status { get; set; }
+        public string status { get; set; } = "";
 
         /// <summary>
         /// Full response from xNet

@@ -8,9 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 // Modules
-using Kotsh.Modules.Model;
+using Kotsh.Models;
 
-namespace Kotsh.Modules.Instance
+namespace Kotsh.Instance
 {
     /// <summary>
     /// Tasker is the main function used to run checks
@@ -64,8 +64,9 @@ namespace Kotsh.Modules.Instance
         /// <summary>
         /// Get a proxy and increment progression
         /// </summary>
+        /// <param name="increment">If true, it will increment proxies</param>
         /// <returns>Proxy as host:port</returns>
-        public string GetProxy()
+        public string GetProxy(bool increment = false)
         {
             // Check proxies
             if (this.proxy_i >= core.Proxies.Count)
@@ -81,7 +82,10 @@ namespace Kotsh.Modules.Instance
             string proxy = host + ":" + port;
 
             // Increment proxy
-            this.proxy_i++;
+            if (increment)
+            {
+                this.proxy_i++;
+            }
 
             // Parse proxy
             Match match = Regex.Match(proxy, proxyRegex);
@@ -133,7 +137,7 @@ namespace Kotsh.Modules.Instance
                     Response res = function.Invoke(combo);
 
                     // Handle banned or retry
-                    while (res.type == (Model.Type.BANNED | Model.Type.RETRY))
+                    while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
                     {   
                         // Relaunch check
                         res = function.Invoke(combo);
@@ -196,7 +200,7 @@ namespace Kotsh.Modules.Instance
                     Response res = function.Invoke();
 
                     // Handle banned or retry
-                    while (res.type == (Model.Type.BANNED | Model.Type.RETRY))
+                    while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
                     {
                         // Relaunch check
                         res = function.Invoke();

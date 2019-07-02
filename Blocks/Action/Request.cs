@@ -1,30 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Kotsh.Models;
 using Leaf.xNet;
 
-namespace Kotsh.Modules.Block
+namespace Kotsh.Blocks
 {
-    /// <summary>
-    /// Supported content types
-    /// </summary>
-    public enum ContentType
-    {
-        /// <summary>
-        /// Correspond to: text/plain
-        /// </summary>
-        PLAIN,
-
-        /// <summary>
-        /// Correspond to: application/json
-        /// </summary>
-        JSON,
-
-        /// <summary>
-        /// Correspond to: application/x-www-form-urlencoded
-        /// </summary>
-        FORM
-    }
-
     /// <summary>
     /// Request block allows you to call URLs
     /// </summary>
@@ -183,9 +163,10 @@ namespace Kotsh.Modules.Block
         /// <summary>
         /// Set proxy (if defined) and execute action
         /// </summary>
+        /// <param name="is_retry">If true, it will retry</param>
         /// <param name="can_be_null">If true, it will accept blank responses</param>
         /// <param name="auto_retry">Will retry the request on exception</param>
-        public void Execute(bool can_be_null = false, bool auto_retry = true)
+        public void Execute(bool is_retry = false, bool can_be_null = false, bool auto_retry = true)
         {
             // Check if proxies are used
             if (Block.core.Proxies.Count > 0)
@@ -194,7 +175,15 @@ namespace Kotsh.Modules.Block
                 string type = Block.core.runSettings["ProxyProtocol"];
 
                 // Get proxy
-                string proxy = Block.core.Tasker.GetProxy();
+                string proxy;
+                if (is_retry)
+                {
+                    proxy = Block.core.Tasker.GetProxy(true);
+                }
+                else
+                {
+                    proxy = Block.core.Tasker.GetProxy();
+                }
 
                 // Select proxy
                 switch (type)
@@ -240,7 +229,7 @@ namespace Kotsh.Modules.Block
                     Block.core.runStats["retry"] = (int.Parse(Block.core.runStats["retry"]) + 1).ToString();
 
                     // Response is null, relaunching it
-                    Execute();
+                    Execute(true);
                 }
             }
             catch

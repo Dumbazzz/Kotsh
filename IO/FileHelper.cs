@@ -2,9 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using System.Linq;
 
-namespace Kotsh.Modules.IO
+namespace Kotsh.IO
 {
     public class FileHelper
     {

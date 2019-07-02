@@ -1,10 +1,11 @@
-﻿using Kotsh.Modules.Model;
+﻿using Kotsh.Models;
+using Kotsh.Window;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Kotsh.Modules.Filter
+namespace Kotsh.Filter
 {
     public class Handler
     {
@@ -128,19 +129,19 @@ namespace Kotsh.Modules.Filter
             switch (response.type)
             {
                 case Type.HIT:
-                    core.Console.Push(Console.Level.SUCCESS, "HITS | " + line);
+                    core.Console.Push(Level.SUCCESS, "HITS | " + line);
                     break;
                 case Type.FREE:
-                    core.Console.Push(Console.Level.INFO, "FREE | " + line);
+                    core.Console.Push(Level.INFO, "FREE | " + line);
                     break;
                 case Type.FAIL:
-                    core.Console.Push(Console.Level.WARNING, "FAIL | " +  line);
+                    core.Console.Push(Level.WARNING, "FAIL | " +  line);
                     break;
                 case Type.CUSTOM:
-                    core.Console.Push(Console.Level.INFO, "CUSTOM | " + line);
+                    core.Console.Push(Level.INFO, "CUSTOM | " + line);
                     break;
                 case Type.EXPIRED:
-                    core.Console.Push(Console.Level.INFO, "EXPIRED | " + line);
+                    core.Console.Push(Level.INFO, "EXPIRED | " + line);
                     break;
             }
         }

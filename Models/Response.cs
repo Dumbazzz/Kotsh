@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 
-namespace Kotsh.Modules.Model
+namespace Kotsh.Models
 {
     /// <summary>
     /// Response class contains every details of check

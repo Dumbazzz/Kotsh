@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using ColorConsole = Colorful.Console;
 
-namespace Kotsh.Modules.Console
+namespace Kotsh.Window
 {
     /// <summary>
     /// Console class allows to push messages in the console

@@ -1,4 +1,4 @@
-﻿namespace Kotsh.Modules.Console
+﻿namespace Kotsh.Window
 {
     /// <summary>
     /// Level of debugging/message throw

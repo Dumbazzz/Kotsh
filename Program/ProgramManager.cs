@@ -3,9 +3,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
-namespace Kotsh.Modules.Program
+namespace Kotsh.Program
 {
-    public class Program
+    public class ProgramManager
     {
         /// <summary>
         /// Core instance
@@ -31,7 +31,7 @@ namespace Kotsh.Modules.Program
         /// Store the core instance
         /// </summary>
         /// <param name="core">Kotsh instance</param>
-        public Program(Manager core)
+        public ProgramManager(Manager core)
         {
             // Store the core
             this.core = core;

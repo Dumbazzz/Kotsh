@@ -1,7 +1,7 @@
-﻿using Kotsh.Modules.Block.Action;
-using Kotsh.Modules.Block.Util;
+﻿using Kotsh.Blocks.Action;
+using Kotsh.Blocks.Util;
 
-namespace Kotsh.Modules.Block
+namespace Kotsh.Blocks
 {
     /// <summary>
     /// Block class

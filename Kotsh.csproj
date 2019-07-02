@@ -78,20 +78,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Kotsh.cs" />
-    <Compile Include="Modules\Block\Action\Parse.cs" />
-    <Compile Include="Modules\Block\Action\Request.cs" />
-    <Compile Include="Modules\Block\Block.cs" />
-    <Compile Include="Modules\Block\Util\Source.cs" />
-    <Compile Include="Modules\Block\Util\StringUtil.cs" />
-    <Compile Include="Modules\Console\Console.cs" />
-    <Compile Include="Modules\Console\Input.cs" />
-    <Compile Include="Modules\Console\Level.cs" />
-    <Compile Include="Modules\Filter\Handler.cs" />
-    <Compile Include="Modules\Model\Response.cs" />
-    <Compile Include="Modules\Instance\Tasker.cs" />
-    <Compile Include="Modules\Model\Type.cs" />
-    <Compile Include="Modules\IO\FileHelper.cs" />
-    <Compile Include="Modules\Program\Program.cs" />
+    <Compile Include="Blocks\Action\Parse.cs" />
+    <Compile Include="Blocks\Action\Request.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\Util\Source.cs" />
+    <Compile Include="Blocks\Util\StringUtil.cs" />
+    <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Window\Console.cs" />
+    <Compile Include="Window\Input.cs" />
+    <Compile Include="Models\Level.cs" />
+    <Compile Include="Filter\Handler.cs" />
+    <Compile Include="Models\Response.cs" />
+    <Compile Include="Instance\Tasker.cs" />
+    <Compile Include="Models\Type.cs" />
+    <Compile Include="IO\FileHelper.cs" />
+    <Compile Include="Program\ProgramManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
