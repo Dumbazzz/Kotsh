@@ -81,7 +81,7 @@
     <Compile Include="Blocks\Action\Parse.cs" />
     <Compile Include="Blocks\Action\Request.cs" />
     <Compile Include="Blocks\Block.cs" />
-    <Compile Include="Blocks\Util\Source.cs" />
+    <Compile Include="Objects\Source.cs" />
     <Compile Include="Blocks\Util\StringUtil.cs" />
     <Compile Include="Models\ContentType.cs" />
     <Compile Include="Statistics\ProgramStatistics.cs" />
