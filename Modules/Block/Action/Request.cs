@@ -77,7 +77,8 @@ namespace Kotsh.Modules.Block
         /// Initialize Request class
         /// </summary>
         /// <param name="URL">Target URL</param>
-        public void Build(string URL)
+        /// <param name="timeout">Set default timeout</param>
+        public void Build(string URL, int timeout = 10000)
         {
             // Reset all
             this.URL = default;
@@ -87,6 +88,12 @@ namespace Kotsh.Modules.Block
 
             // Initialize HttpRequest
             request = new HttpRequest();
+
+            // Ignore protocol errors
+            request.IgnoreProtocolErrors = true;
+
+            // Set connect timeout
+            request.ConnectTimeout = timeout;
 
             // Store URL
             this.URL = URL;
@@ -206,9 +213,6 @@ namespace Kotsh.Modules.Block
                         break;
                 }
             }
-
-            // Ignore HTTP status codes
-            request.IgnoreProtocolErrors = true;
 
             // Handle errors
             try
