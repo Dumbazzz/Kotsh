@@ -92,30 +92,44 @@ namespace Kotsh.Program
             core.Handler.MakeFolders();
         }
 
+        /// <summary>
+        /// Replace input with dynamic variables (e.g.: %name%) to fixed value
+        /// </summary>
+        /// <param name="input">Text with dynamic variables</param>
+        /// <returns>Text with fixed value</returns>
+        public string ReplaceVariables(string input)
+        {
+            return input
+                // Program informations
+                .Replace("%name%", this.name)
+                .Replace("%author%", this.author)
+                .Replace("%version%", this.version)
+
+                // Stats
+                .Replace("%cpm%", core.runStats.Get("cpm"))
+                .Replace("%checked%", core.runStats.Get("checked"))
+                .Replace("%remaining%", core.runStats.Get("remaining"))
+
+                // Targets
+                .Replace("%hits%", core.runStats.Get("hits"))
+                .Replace("%free%", core.runStats.Get("free"))
+                .Replace("%custom%", core.runStats.Get("custom"))
+                .Replace("%expired%", core.runStats.Get("expired"))
+                .Replace("%fail%", core.runStats.Get("fail"))
+                .Replace("%banned%", core.runStats.Get("banned"))
+                .Replace("%retry%", core.runStats.Get("retry"));
+        }
+
+        /// <summary>
+        /// Update window title
+        /// </summary>
         public void UpdateTitle()
         {
             // Select title according to the situation
             string title = titles[core.status];
 
-            // Replace program definitions
-            title = title.Replace("%name%", this.name);
-            title = title.Replace("%author%", this.author);
-            title = title.Replace("%version%", this.version);
-
-            // Replace program statistics
-            title = title.Replace("%cpm%", core.runStats.Get("cpm"));
-            title = title.Replace("%checked%", core.runStats.Get("checked"));
-            title = title.Replace("%remaining%", core.runStats.Get("remaining"));
-            title = title.Replace("%hits%", core.runStats.Get("hits"));
-            title = title.Replace("%free%", core.runStats.Get("free"));
-            title = title.Replace("%custom%", core.runStats.Get("custom"));
-            title = title.Replace("%expired%", core.runStats.Get("expired"));
-            title = title.Replace("%fail%", core.runStats.Get("fail"));
-            title = title.Replace("%banned%", core.runStats.Get("banned"));
-            title = title.Replace("%retry%", core.runStats.Get("retry"));
-
             // Display title
-            System.Console.Title = title;
+            System.Console.Title = ReplaceVariables(title);
         }
     }
 }
