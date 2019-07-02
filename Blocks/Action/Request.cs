@@ -108,7 +108,7 @@ namespace Kotsh.Blocks
         public void AddBody(string body, ContentType content_type)
         {
             // Append body
-            this.body = new StringContent(body, System.Text.Encoding.UTF8);
+            this.body = new StringContent(Block.StringUtil.ReplaceValues(body), System.Text.Encoding.UTF8);
 
             // Set corresponding content type
             switch (content_type)
