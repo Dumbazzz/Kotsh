@@ -224,7 +224,7 @@ namespace Kotsh.Instance
         private void RegisterCPM()
         {
             // Start CPM calculator thread
-            new Thread(() =>
+            Task.Run(() =>
             {
                 // While checking
                 while (core.status == 1)
@@ -244,7 +244,7 @@ namespace Kotsh.Instance
                     // Assign CPM
                     core.runStats["cpm"] = cpm.ToString();
                 }
-            }).Start();
+            });
         }
     }
 }
