@@ -104,7 +104,7 @@ namespace Kotsh.Instance
         /// Check every combo using multi-threading
         /// </summary>
         /// <param name="function">Checking function</param>
-        public void RunCombo(Func<string, Response> function)
+        public void RunCombo(Func<string, Response, Response> function)
         {
             // Open file stream
             var stream = File.ReadLines(core.runSettings["combolist"]);
@@ -134,13 +134,13 @@ namespace Kotsh.Instance
                 }, (combo, controller, count) =>
                 {
                     // Execute combo
-                    Response res = function.Invoke(combo);
+                    Response res = function.Invoke(combo, new Response(combo));
 
                     // Handle banned or retry
                     while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
                     {   
                         // Relaunch check
-                        res = function.Invoke(combo);
+                        res = function.Invoke(combo, new Response(combo));
                     }
 
                     // Call response handler
@@ -171,7 +171,7 @@ namespace Kotsh.Instance
         /// Execute function into a infinite loop
         /// </summary>
         /// <param name="function">Checking function</param>
-        public void RunInfinite(Func<Response> function)
+        public void RunInfinite(Func<Response, Response> function)
         {
             // Store line 
             // TODO: Actually set on max int value
@@ -197,13 +197,13 @@ namespace Kotsh.Instance
                 new Action<bool>((val) => 
                 {
                     // Execute combo
-                    Response res = function.Invoke();
+                    Response res = function.Invoke(new Response());
 
                     // Handle banned or retry
                     while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
                     {
                         // Relaunch check
-                        res = function.Invoke();
+                        res = function.Invoke(new Response());
                     } 
 
                     // Call response handler

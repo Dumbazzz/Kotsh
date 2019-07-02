@@ -21,5 +21,14 @@ namespace Kotsh.Models
         /// Captured elements for the combo
         /// </summary>
         public NameValueCollection capture = new NameValueCollection();
+
+        /// <summary>
+        /// Constructor allow to set a combo or code
+        /// </summary>
+        /// <param name="combo">combo</param>
+        public Response(string combo = "")
+        {
+            this.combo = combo;
+        }
     }
 }
