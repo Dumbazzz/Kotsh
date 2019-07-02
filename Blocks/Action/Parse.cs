@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Leaf.xNet;
 
 namespace Kotsh.Blocks.Action
 {
@@ -31,15 +32,8 @@ namespace Kotsh.Blocks.Action
         /// <returns>Extracted text</returns>
         public string ByDelimiter(string left, string right)
         {
-            // Get last response
-            string data = Block.Source.data;
-
-            // Get lengths of left/right
-            int pFrom = data.IndexOf(left) + left.Length;
-            int pTo = data.LastIndexOf(right);
-
             // Substring it
-            return data.Substring(pFrom, pTo - pFrom);
+            return Block.Source.full.ToString().Substring(left, right);
         }
 
         /// <summary>
