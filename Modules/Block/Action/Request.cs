@@ -5,27 +5,6 @@ using Leaf.xNet;
 namespace Kotsh.Modules.Block
 {
     /// <summary>
-    /// Response Object/Model
-    /// </summary>
-    public class Response
-    {
-        /// <summary>
-        /// Plain-text response
-        /// </summary>
-        public string data = "";
-
-        /// <summary>
-        /// HTTP response code
-        /// </summary>
-        public string code = "";
-
-        /// <summary>
-        /// Headers with response
-        /// </summary>
-        public HttpResponse full;
-    }
-
-    /// <summary>
     /// Supported content types
     /// </summary>
     public enum ContentType
@@ -80,11 +59,6 @@ namespace Kotsh.Modules.Block
         private StringContent body;
 
         /// <summary>
-        /// Response Object
-        /// </summary>
-        public Response response = new Response();
-
-        /// <summary>
         /// Block instance
         /// </summary>
         private Block Block;
@@ -109,7 +83,7 @@ namespace Kotsh.Modules.Block
             this.URL = default;
             this.method = default;
             this.body = new StringContent("");
-            this.response = new Response();
+            Block.Source.Reset();
 
             // Initialize HttpRequest
             request = new HttpRequest();
@@ -281,13 +255,13 @@ namespace Kotsh.Modules.Block
         private void AssignResponses(HttpResponse res) 
         {
             // Data response (JSON, HTML, XML, etc...)
-            response.data = res.ToString();
+            Block.Source.data = res.ToString();
 
             // Status code
-            response.code = res.StatusCode.ToString();
+            Block.Source.status = res.StatusCode.ToString();
 
             // Full response
-            response.full = res;
+            Block.Source.full = res;
         }
     }
 }

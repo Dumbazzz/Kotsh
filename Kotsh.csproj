@@ -81,6 +81,7 @@
     <Compile Include="Modules\Block\Action\Parse.cs" />
     <Compile Include="Modules\Block\Action\Request.cs" />
     <Compile Include="Modules\Block\Block.cs" />
+    <Compile Include="Modules\Block\Util\Source.cs" />
     <Compile Include="Modules\Block\Util\StringUtil.cs" />
     <Compile Include="Modules\Console\Console.cs" />
     <Compile Include="Modules\Console\Input.cs" />

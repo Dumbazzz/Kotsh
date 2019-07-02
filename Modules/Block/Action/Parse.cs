@@ -33,7 +33,7 @@ namespace Kotsh.Modules.Block.Action
         public string ByDelimiter(string left, string right)
         {
             // Get last response
-            string data = Block.Request.response.data;
+            string data = Block.Source.data;
 
             // Get lengths of left/right
             int pFrom = data.IndexOf(left) + left.Length;
@@ -51,7 +51,7 @@ namespace Kotsh.Modules.Block.Action
         public string ByJSON(string key)
         {
             // Get last response
-            string data = Block.Request.response.data;
+            string data = Block.Source.data;
 
             // Find value
             string value = "";
@@ -82,7 +82,7 @@ namespace Kotsh.Modules.Block.Action
         public string ByRegex(string pattern)
         {
             // Get last response
-            string data = Block.Request.response.data;
+            string data = Block.Source.data;
 
             // Apply regex
             Regex regex = new Regex(pattern);

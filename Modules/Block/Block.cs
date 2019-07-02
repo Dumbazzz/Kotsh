@@ -23,6 +23,7 @@ namespace Kotsh.Modules.Block
         /// Utilities blocks
         /// </summary>
         public StringUtil StringUtil;
+        public Source Source;
 
         /// <summary>
         /// Store core instance and initialize blocks
@@ -37,6 +38,7 @@ namespace Kotsh.Modules.Block
             this.Request = new Request(this);
             this.Parse = new Parse(this);
             this.StringUtil = new StringUtil(this);
+            this.Source = new Source(this);
         }
     }
 }
