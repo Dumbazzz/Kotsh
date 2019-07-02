@@ -1,4 +1,4 @@
-﻿// System
+// System
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,7 +46,7 @@ namespace Kotsh.Instance
         /// Return threads in integer (if not set, it will set 1 thread)
         /// </summary>
         /// <returns>Thread Count</returns>
-        private int getThreads()
+        private int GetThreads()
         {
             // Check if threads are set
             if (core.runStats.Get("threads") == null)
@@ -126,7 +126,7 @@ namespace Kotsh.Instance
                 new ParallelOptions
                 {
                     // Max threads 
-                    MaxDegreeOfParallelism = getThreads()
+                    MaxDegreeOfParallelism = GetThreads()
 
                     // Combo => Line
                     // Controller => Parallel control variable
@@ -191,7 +191,7 @@ namespace Kotsh.Instance
                 new ParallelOptions
                 {
                     // Max threads 
-                    MaxDegreeOfParallelism = getThreads()
+                    MaxDegreeOfParallelism = GetThreads()
                 },
                 // Arguments
                 new Action<bool>((val) => 
