@@ -93,7 +93,7 @@ namespace Kotsh
         /// <summary>
         /// Initialize modules
         /// </summary>
-        public Manager(System.Func<Manager, ProgramManager, Console, Input, FileHelper, Tasker, Handler, Block, int> execution)
+        public Manager(System.Action<Manager, ProgramManager, Console, Input, FileHelper, Tasker, Handler, Block> execution)
         {
             // Initialize modules
             this.Program = new ProgramManager(this);
