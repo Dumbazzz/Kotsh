@@ -67,13 +67,15 @@ namespace Kotsh.Blocks
             Block.Source.Reset();
 
             // Initialize HttpRequest
-            request = new HttpRequest();
+            request = new HttpRequest
+            {
 
-            // Ignore protocol errors
-            request.IgnoreProtocolErrors = true;
+                // Ignore protocol errors
+                IgnoreProtocolErrors = true,
 
-            // Set connect timeout
-            request.ConnectTimeout = timeout;
+                // Set connect timeout
+                ConnectTimeout = timeout
+            };
 
             // Store URL
             this.URL = URL;
