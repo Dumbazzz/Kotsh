@@ -149,7 +149,7 @@ namespace Kotsh.Window
 
             // Write program name
             ColorConsole.WriteLine(core.Program.name, Color.Orange);
-            
+
             // Break line
             ColorConsole.WriteLine();
 

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using Kotsh.Models;
 using Leaf.xNet;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Kotsh.Blocks
 {
@@ -148,7 +148,7 @@ namespace Kotsh.Blocks
             string header = "";
 
             // Foreach cookies
-            foreach(var cookie in cookies)
+            foreach (var cookie in cookies)
             {
                 header += cookie.Key + "=" + cookie.Value + "&";
             }
@@ -245,7 +245,7 @@ namespace Kotsh.Blocks
             }
         }
 
-        private void AssignResponses(HttpResponse res) 
+        private void AssignResponses(HttpResponse res)
         {
             // Data response (JSON, HTML, XML, etc...)
             Block.Source.data = res.ToString();

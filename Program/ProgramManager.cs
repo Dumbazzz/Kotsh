@@ -49,7 +49,7 @@ namespace Kotsh.Program
             // Make random ID
             Enumerable
                .Range(65, 26)
-                .Select(e => ((char) e).ToString())
+                .Select(e => ((char)e).ToString())
                 .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
                 .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
                 .OrderBy(e => Guid.NewGuid())
@@ -80,9 +80,9 @@ namespace Kotsh.Program
             core.runSettings["session_id"] = this.MakeId();
 
             // Make unique session folder
-            core.runSettings["session_folder"] = 
+            core.runSettings["session_folder"] =
                 DateTime.Now.ToString().Replace("/", "-").Replace(":", "-")
-                + " - " 
+                + " - "
                 + core.runSettings["session_id"];
 
             // Update title
@@ -106,20 +106,20 @@ namespace Kotsh.Program
                 .Replace("%version%", this.version)
 
                 // Stats
-                .Replace("%cpm%"      , core.ProgramStatistics.Get("cpm").ToString())
-                .Replace("%checked%"  , core.ProgramStatistics.Get("checked").ToString())
+                .Replace("%cpm%", core.ProgramStatistics.Get("cpm").ToString())
+                .Replace("%checked%", core.ProgramStatistics.Get("checked").ToString())
                 .Replace("%remaining%", core.ProgramStatistics.Get("remaining").ToString())
-                .Replace("%count%"    , core.ProgramStatistics.Get("count").ToString())
-                .Replace("%rpm%"      , core.ProgramStatistics.Get("rpm").ToString())       
+                .Replace("%count%", core.ProgramStatistics.Get("count").ToString())
+                .Replace("%rpm%", core.ProgramStatistics.Get("rpm").ToString())
 
                 // Targets
-                .Replace("%hits%"   , core.RunStatistics.Get(Models.Type.HIT).ToString())
-                .Replace("%free%"   , core.RunStatistics.Get(Models.Type.FREE).ToString())
-                .Replace("%custom%" , core.RunStatistics.Get(Models.Type.CUSTOM).ToString())
+                .Replace("%hits%", core.RunStatistics.Get(Models.Type.HIT).ToString())
+                .Replace("%free%", core.RunStatistics.Get(Models.Type.FREE).ToString())
+                .Replace("%custom%", core.RunStatistics.Get(Models.Type.CUSTOM).ToString())
                 .Replace("%expired%", core.RunStatistics.Get(Models.Type.EXPIRED).ToString())
-                .Replace("%fail%"   , core.RunStatistics.Get(Models.Type.FAIL).ToString())
-                .Replace("%banned%" , core.RunStatistics.Get(Models.Type.BANNED).ToString())
-                .Replace("%retry%"  , core.RunStatistics.Get(Models.Type.RETRY).ToString());
+                .Replace("%fail%", core.RunStatistics.Get(Models.Type.FAIL).ToString())
+                .Replace("%banned%", core.RunStatistics.Get(Models.Type.BANNED).ToString())
+                .Replace("%retry%", core.RunStatistics.Get(Models.Type.RETRY).ToString());
         }
 
         /// <summary>

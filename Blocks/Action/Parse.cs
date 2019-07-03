@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Leaf.xNet;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Leaf.xNet;
 
 namespace Kotsh.Blocks.Action
 {
@@ -56,7 +56,8 @@ namespace Kotsh.Blocks.Action
                 {
                     // Parse and find
                     value = JArray.Parse(data).Children()[key].First().ToString();
-                } catch (Exception) { }
+                }
+                catch (Exception) { }
             }
             // For an object
             else if (data.StartsWith("{"))
@@ -65,7 +66,8 @@ namespace Kotsh.Blocks.Action
                 {
                     // Parse and find
                     value = JObject.Parse(data)[key].ToString();
-                } catch (Exception) { }
+                }
+                catch (Exception) { }
             }
 
             // Return found value

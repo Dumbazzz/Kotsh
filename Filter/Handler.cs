@@ -61,7 +61,8 @@ namespace Kotsh.Filter
 
             // Lock files
             fileLock.EnterWriteLock();
-            try {
+            try
+            {
                 Stream stream = null;
 
                 try
@@ -78,7 +79,7 @@ namespace Kotsh.Filter
                         // Close the writer
                         sw.Close();
                     }
-                } 
+                }
                 finally
                 {
                     // Close stream
@@ -149,7 +150,7 @@ namespace Kotsh.Filter
                     core.Console.Push(Level.INFO, "FREE | " + line);
                     break;
                 case Type.FAIL:
-                    core.Console.Push(Level.WARNING, "FAIL | " +  line);
+                    core.Console.Push(Level.WARNING, "FAIL | " + line);
                     break;
                 case Type.CUSTOM:
                     core.Console.Push(Level.INFO, "CUSTOM | " + line);

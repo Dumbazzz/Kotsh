@@ -1,14 +1,13 @@
 ﻿// System
-using System.Collections.Specialized;
-
+using Kotsh.Blocks;
+using Kotsh.Filter;
+using Kotsh.Instance;
+using Kotsh.IO;
 // Modules
 using Kotsh.Program;
-using Kotsh.Window;
-using Kotsh.IO;
-using Kotsh.Instance;
-using Kotsh.Filter;
-using Kotsh.Blocks;
 using Kotsh.Statistics;
+using Kotsh.Window;
+using System.Collections.Specialized;
 
 // Kotsh namespace
 namespace Kotsh

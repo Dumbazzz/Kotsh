@@ -1,14 +1,12 @@
 ﻿// System
+// Modules
+using Kotsh.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
-
-// Modules
-using Kotsh.Models;
 
 namespace Kotsh.Instance
 {
@@ -138,7 +136,7 @@ namespace Kotsh.Instance
 
                     // Handle banned or retry
                     while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
-                    {   
+                    {
                         // Relaunch check
                         res = function.Invoke(combo, new Response(combo));
                     }
@@ -194,7 +192,7 @@ namespace Kotsh.Instance
                     MaxDegreeOfParallelism = GetThreads()
                 },
                 // Arguments
-                new Action<bool>((val) => 
+                new Action<bool>((val) =>
                 {
                     // Execute combo
                     Response res = function.Invoke(new Response());
@@ -204,7 +202,7 @@ namespace Kotsh.Instance
                     {
                         // Relaunch check
                         res = function.Invoke(new Response());
-                    } 
+                    }
 
                     // Call response handler
                     core.Handler.Check(res);
