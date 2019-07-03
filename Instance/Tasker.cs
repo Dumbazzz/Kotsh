@@ -47,15 +47,27 @@ namespace Kotsh.Instance
         private int GetThreads()
         {
             // Check if threads are set
-            if (!Enumerable.Range(1, 1000).Contains(core.threads)) // Limit on 1k thread
+            if (!Enumerable.Range(1, int.MaxValue).Contains(core.threads))
             {
                 // Wrong thread number
                 return 1; // Set on 1 thread
             }
             else
             {
-                // Threads are set
-                return core.threads;
+                // Check lines
+                int lines = core.ProgramStatistics.Get("count");
+
+                // Check if thread are less than lines
+                if (core.threads > lines)
+                {
+                    // Too much threads, set 1 thread
+                    return 1; 
+                }
+                else
+                {
+                    // Threads are set
+                    return core.threads;
+                }
             }
         }
 
