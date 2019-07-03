@@ -62,14 +62,28 @@ namespace Kotsh.Filter
             // Lock files
             fileLock.EnterWriteLock();
             try {
-                // Append into file
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    // Write into the file
-                    sw.WriteLine(line);
+                Stream stream = null;
 
-                    // Close the writer
-                    sw.Close();
+                try
+                {
+                    // Open stream
+                    stream = new FileStream(path, FileMode.OpenOrCreate);
+
+                    // Append into file
+                    using (StreamWriter sw = new StreamWriter(stream))
+                    {
+                        // Write into the file
+                        sw.WriteLine(line);
+
+                        // Close the writer
+                        sw.Close();
+                    }
+                } 
+                finally
+                {
+                    // Close stream
+                    if (stream != null)
+                        stream.Dispose();
                 }
             }
             finally
