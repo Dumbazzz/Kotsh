@@ -58,7 +58,7 @@ namespace Kotsh.Blocks
         /// </summary>
         /// <param name="URL">Target URL</param>
         /// <param name="timeout">Set default timeout</param>
-        public void Build(string URL, int timeout = 10000)
+        public Request Build(string URL, int timeout = 10000)
         {
             // Reset all
             this.URL = default;
@@ -79,13 +79,16 @@ namespace Kotsh.Blocks
 
             // Store URL
             this.URL = URL;
+
+            // Return methods
+            return this;
         }
 
         /// <summary>
         /// Add a method
         /// </summary>
         /// <param name="method">Method (GET, POST, etc...)</param>
-        public void Method(string method)
+        public Request Method(string method)
         {
             // Make value uppercase
             method = method.ToUpper();
@@ -100,6 +103,9 @@ namespace Kotsh.Blocks
             {
                 System.Console.WriteLine("-> Method is not available: " + method);
             }
+
+            // Return methods
+            return this;
         }
 
         /// <summary>
@@ -107,7 +113,7 @@ namespace Kotsh.Blocks
         /// </summary>
         /// <param name="body">POST body</param>
         /// <param name="content_type">HTTP Content-Type header</param>
-        public void AddBody(string body, ContentType content_type)
+        public Request AddBody(string body, ContentType content_type)
         {
             // Append body
             this.body = new StringContent(Block.StringUtil.ReplaceValues(body), System.Text.Encoding.UTF8);
@@ -127,6 +133,9 @@ namespace Kotsh.Blocks
                     AddHeader("Content-Type", "application/x-www-form-urlencoded");
                     break;
             }
+
+            // Return method
+            return this;
         }
 
         /// <summary>
@@ -134,17 +143,20 @@ namespace Kotsh.Blocks
         /// </summary>
         /// <param name="key">Header key</param>
         /// <param name="value">Header value</param>
-        public void AddHeader(string key, string value)
+        public Request AddHeader(string key, string value)
         {
             // Add header
             request[key] = value;
+
+            // Return method
+            return this;
         }
 
         /// <summary>
         /// Make cookie jar and add as header
         /// </summary>
         /// <param name="cookies">Cookie Dictionnary as key;value</param>
-        public void AddCookies(Dictionary<string, string> cookies)
+        public Request AddCookies(Dictionary<string, string> cookies)
         {
             // Prepare header
             string header = "";
@@ -160,6 +172,9 @@ namespace Kotsh.Blocks
 
             // Send header
             this.AddHeader("Cookie", header);
+
+            // Return method
+            return this;
         }
 
         /// <summary>
