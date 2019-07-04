@@ -149,7 +149,7 @@ namespace Kotsh.Blocks
         public Request AddHeader(string key, string value)
         {
             // Add header
-            request[key] = value;
+            request[Block.Dictionary.Replace(key)] = Block.Dictionary.Replace(value);
 
             // Return method
             return this;
@@ -167,7 +167,7 @@ namespace Kotsh.Blocks
             // Foreach cookies
             foreach (var cookie in cookies)
             {
-                header += cookie.Key + "=" + cookie.Value + "&";
+                header += Block.Dictionary.Replace(cookie.Key) + "=" + Block.Dictionary.Replace(cookie.Value) + "&";
             }
 
             // Trim last '&'
