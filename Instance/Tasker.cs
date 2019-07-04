@@ -19,6 +19,12 @@ namespace Kotsh.Instance
         private Manager core;
 
         /// <summary>
+        /// Regex for credentials (user:pass and email:pass)
+        /// </summary>
+        private readonly Regex CredentialsRegex = new Regex("^.*:.*$");
+
+
+        /// <summary>
         /// Store the core instance
         /// </summary>
         /// <param name="core">Kotsh instance</param>
@@ -92,18 +98,22 @@ namespace Kotsh.Instance
                     // Count => Number of lines
                 }, (combo, controller, count) =>
                 {
-                    // Execute combo
-                    Response res = function.Invoke(combo, new Response(combo));
-
-                    // Handle banned or retry
-                    while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
+                    // Check combo using regex
+                    if (CredentialsRegex.IsMatch(combo))
                     {
-                        // Relaunch check
-                        res = function.Invoke(combo, new Response(combo));
-                    }
+                        // Execute combo
+                        Response res = function.Invoke(combo, new Response(combo));
 
-                    // Call response handler
-                    core.Handler.Check(res);
+                        // Handle banned or retry
+                        while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
+                        {
+                            // Relaunch check
+                            res = function.Invoke(combo, new Response(combo));
+                        }
+
+                        // Call response handler
+                        core.Handler.Check(res);
+                    }
                 }
             );
 
