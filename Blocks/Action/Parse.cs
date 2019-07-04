@@ -56,25 +56,26 @@ namespace Kotsh.Blocks.Action
             // Find value
             string value = "";
 
-            // For an array
-            if (data.StartsWith("["))
+            // Try
+            try
             {
-                try
+                // For an array
+                if (data.StartsWith("["))
                 {
                     // Parse and find
                     value = JArray.Parse(data).Children()[key].First().ToString();
                 }
-                catch (Exception) { }
-            }
-            // For an object
-            else if (data.StartsWith("{"))
-            {
-                try
+                // For an object
+                else if (data.StartsWith("{"))
                 {
                     // Parse and find
                     value = JObject.Parse(data)[key].ToString();
                 }
-                catch (Exception) { }
+            }
+            catch (Exception)
+            {
+                // Error => Value stay at default
+                value = "";
             }
 
             // Add to dictionary
