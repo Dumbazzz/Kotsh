@@ -266,6 +266,10 @@ namespace Kotsh.Blocks
             }
         }
 
+        /// <summary>
+        /// Set responses to Source object
+        /// </summary>
+        /// <param name="res">HttpResponse</param>
         private void AssignResponses(HttpResponse res)
         {
             // Data response (JSON, HTML, XML, etc...)
