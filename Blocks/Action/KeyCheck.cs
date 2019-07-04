@@ -17,6 +17,16 @@ namespace Kotsh.Blocks.Action
         private Dictionary<string, Type> Keys = new Dictionary<string, Type>();
 
         /// <summary>
+        /// Providing source
+        /// </summary>
+        private Provider Provider { get; set; } = Provider.SOURCE;
+
+        /// <summary>
+        /// Source to check according to the Provider
+        /// </summary>
+        private string Data = "";
+
+        /// <summary>
         /// Set as BAN if no key match is found
         /// </summary>
         private bool BanIfNotFound = true;
@@ -29,6 +39,25 @@ namespace Kotsh.Blocks.Action
         {
             // Store instance
             this.Block = block;
+        }
+
+        public KeyCheck Source(Provider provider = Provider.SOURCE)
+        {
+            // Switch provider
+            switch (provider)
+            {
+                default:
+                case Provider.SOURCE:
+                    Data = Block.Source.Data;
+                    break;
+
+                case Provider.ADDRESS:
+                    Data = Block.Source.URL;
+                    break;
+            }
+
+            // Continue method
+            return this;
         }
 
         /// <summary>
@@ -77,14 +106,11 @@ namespace Kotsh.Blocks.Action
         }
 
         /// <summary>
-        /// Check and assign response
+        /// Check if source contains keys
         /// </summary>
         /// <param name="response">Response type</param>
-        public Response Check(Response response)
+        public Response Contains(Response response)
         {
-            // Get data
-            string data = Block.Source.Data;
-
             // Temporary variables
             bool found = false;
 
@@ -92,7 +118,54 @@ namespace Kotsh.Blocks.Action
             foreach (string key in Keys.Keys)
             {
                 // Check match
-                if (!found && data.Contains(key))
+                if (!found && Data.Contains(key))
+                {
+                    // Set as found
+                    found = true;
+
+                    // Save type as response
+                    response.type = Keys[key];
+                }
+            }
+
+            // Ban if not found
+            if (BanIfNotFound && !found)
+            {
+                // Set as banned
+                response.type = Type.BANNED;
+            }
+
+            // Stop the block on fail, ban or retry
+            if (response.type == Type.BANNED || response.type == Type.RETRY || response.type == Type.FAIL)
+            {
+                // Stop block execution
+                Block.Stop();
+            }
+
+            // Reset ban once checked
+            BanIfNotFound = true;
+
+            // Reset dictionary
+            Keys.Clear();
+
+            // Send response
+            return response;
+        }
+
+        /// <summary>
+        /// Check if source equals keys
+        /// </summary>
+        /// <param name="response">Response type</param>
+        public Response Equals(Response response)
+        {
+            // Temporary variables
+            bool found = false;
+
+            // Check every keys
+            foreach (string key in Keys.Keys)
+            {
+                // Check match
+                if (!found && Data.Equals(key))
                 {
                     // Set as found
                     found = true;
