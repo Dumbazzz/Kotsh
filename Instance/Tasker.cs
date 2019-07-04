@@ -1,6 +1,4 @@
-﻿// System
-// Modules
-using Kotsh.Models;
+﻿using Kotsh.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -161,7 +159,7 @@ namespace Kotsh.Instance
                     Response res = function.Invoke(new Response());
 
                     // Handle banned or retry
-                    while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
+                    while (res.type == Models.Type.BANNED || res.type == Models.Type.RETRY)
                     {
                         // Relaunch check
                         res = function.Invoke(new Response());
