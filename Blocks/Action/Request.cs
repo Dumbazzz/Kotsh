@@ -74,7 +74,10 @@ namespace Kotsh.Blocks
                 IgnoreProtocolErrors = true,
 
                 // Set connect timeout
-                ConnectTimeout = timeout
+                ConnectTimeout = timeout,
+
+                // Set Chrome UA by default
+                UserAgent = Http.ChromeUserAgent()
             };
 
             // Store URL
