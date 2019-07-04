@@ -81,7 +81,7 @@ namespace Kotsh.Blocks
             };
 
             // Store URL
-            this.URL = URL;
+            this.URL = Block.Dictionary.Replace(URL);
 
             // Return methods
             return this;
