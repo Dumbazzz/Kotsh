@@ -1,4 +1,4 @@
-﻿using Kotsh.Blocks.Action;
+using Kotsh.Blocks.Action;
 using Kotsh.Blocks.Util;
 using Kotsh.Objects;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace Kotsh.Blocks
         /// <summary>
         /// Can continue automation
         /// </summary>
-        public bool running = true;
+        private bool running = true;
 
         /// <summary>
         /// Store core instance and initialize blocks
@@ -61,9 +61,6 @@ namespace Kotsh.Blocks
         /// <param name="methods">List of actions</param>
         public void Automate(string combo, List<System.Action> methods)
         {
-            // Reset running
-            running = true;
-
             // Save combo
             if (combo != "")
                 SetCombo(combo);
