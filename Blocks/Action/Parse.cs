@@ -26,22 +26,29 @@ namespace Kotsh.Blocks.Action
         /// <summary>
         /// Extract text between delimiters
         /// </summary>
-        /// <param name="data">Original text</param>
+        /// <param name="variable">Dictionary key</param>
         /// <param name="left">Left delimiter</param>
         /// <param name="right">Right delimiter</param>
         /// <returns>Extracted text</returns>
-        public string ByDelimiter(string left, string right)
+        public string ByDelimiter(string variable, string left, string right)
         {
             // Substring it
-            return Block.Source.full.ToString().Substring(left, right);
+            string value = Block.Source.full.ToString().Substring(left, right);
+
+            // Add to dictionary
+            Block.Dictionary.Add(variable, value);
+
+            // Return value
+            return value;
         }
 
         /// <summary>
         /// Finds a JSON value by its key
         /// </summary>
+        /// <param name="variable">Dictionary key</param>
         /// <param name="key">JSON key</param>
         /// <returns>JSON Value</returns>
-        public string ByJSON(string key)
+        public string ByJSON(string variable, string key)
         {
             // Get last response
             string data = Block.Source.data;
@@ -70,11 +77,20 @@ namespace Kotsh.Blocks.Action
                 catch (Exception) { }
             }
 
+            // Add to dictionary
+            Block.Dictionary.Add(variable, value);
+
             // Return found value
             return value;
         }
 
-        public string ByRegex(string pattern)
+        /// <summary>
+        /// Get a value from a regex match
+        /// </summary>
+        /// <param name="variable">Dictionary key</param>
+        /// <param name="pattern">Regex Pattern</param>
+        /// <returns>Regex Match</returns>
+        public string ByRegex(string variable, string pattern)
         {
             // Get last response
             string data = Block.Source.data;
@@ -83,7 +99,13 @@ namespace Kotsh.Blocks.Action
             Regex regex = new Regex(pattern);
 
             // Get capture
-            return regex.Match(data).Groups[1].ToString();
+            string value = regex.Match(data).Groups[1].ToString();
+
+            // Add to dictionary
+            Block.Dictionary.Add(variable, value);
+
+            // Return value
+            return value;
         }
     }
 }

@@ -44,19 +44,5 @@ namespace Kotsh.Blocks.Util
         {
             return random.Next(min, max);
         }
-
-        /// <summary>
-        /// Replace original text by dynamic variables
-        /// </summary>
-        /// <param name="original">Original text</param>
-        /// <returns>New text with variables</returns>
-        public string ReplaceValues(string original)
-        {
-            // Return replaced text
-            return original
-                .Replace("<USER>", Block.username)
-                .Replace("<PASS>", Block.password)
-                .Replace("<FULL>", Block.combo);
-        }
     }
 }

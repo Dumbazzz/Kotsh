@@ -11,7 +11,7 @@ namespace Kotsh.Blocks
     public class Block
     {
         /// <summary>
-        /// Core instance
+        /// Kotsh instance
         /// </summary>
         public Manager core;
 
@@ -25,18 +25,12 @@ namespace Kotsh.Blocks
         /// Utilities blocks
         /// </summary>
         public StringUtil StringUtil;
+        public Dictionary Dictionary;
+
+        /// <summary>
+        /// Objects
+        /// </summary>
         public Source Source;
-
-        /// <summary>
-        /// Combo
-        /// </summary>
-        public string combo;
-
-        /// <summary>
-        /// Username and Password
-        /// </summary>
-        public string username;
-        public string password;
 
         /// <summary>
         /// Can continue automation
@@ -49,13 +43,14 @@ namespace Kotsh.Blocks
         /// <param name="core">Kotsh instance</param>
         public Block(Manager core)
         {
-            // Store the core
+            // Store instance
             this.core = core;
 
             // Start instances
             this.Request = new Request(this);
             this.Parse = new Parse(this);
             this.StringUtil = new StringUtil(this);
+            this.Dictionary = new Dictionary(this);
             this.Source = new Source(this);
         }
 
@@ -92,11 +87,11 @@ namespace Kotsh.Blocks
         private void SetCombo(string combo)
         {
             // Save full definition
-            this.combo = combo;
+            Dictionary.Add("combo", combo);
 
             // Split and save definitions
-            username = combo.Split(':')[0];
-            password = combo.Split(':')[1];
+            Dictionary.Add("user", combo.Split(':')[0]);
+            Dictionary.Add("pass", combo.Split(':')[1]);
         }
 
         /// <summary>
