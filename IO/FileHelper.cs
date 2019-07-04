@@ -87,7 +87,7 @@ namespace Kotsh.IO
         /// Will execute a lambda function for each line of the file
         /// </summary>
         /// <param name="function">Lambda function</param>
-        public void Execute(Func<string, int> function)
+        public void Execute(Action<string> function)
         {
             // Read file line by line
             var lines = File.ReadLines(this.filepath);
@@ -188,9 +188,6 @@ namespace Kotsh.IO
             {
                 // Add proxy
                 core.ProxyController.Add(line, protocol);
-
-                // Exit lambda
-                return 0;
             });
 
             
