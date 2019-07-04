@@ -78,10 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blocks\Util\Dictionary.cs" />
+    <Compile Include="Instance\ProxyController.cs" />
     <Compile Include="Kotsh.cs" />
     <Compile Include="Blocks\Action\Parse.cs" />
     <Compile Include="Blocks\Action\Request.cs" />
     <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Models\Proxy.cs" />
     <Compile Include="Objects\Source.cs" />
     <Compile Include="Blocks\Util\StringUtil.cs" />
     <Compile Include="Models\ContentType.cs" />

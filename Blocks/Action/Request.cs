@@ -187,40 +187,8 @@ namespace Kotsh.Blocks
         /// <param name="can_be_null">If true, it will accept blank responses</param>
         public void Execute(bool is_retry = false, bool can_be_null = false)
         {
-            // Check if proxies are used
-            if (Block.core.Proxies.Count > 0)
-            {
-                // Get proxy type
-                string type = Block.core.runSettings["ProxyProtocol"];
-
-                // Get proxy
-                string proxy;
-                if (is_retry)
-                {
-                    proxy = Block.core.Tasker.GetProxy(true);
-                }
-                else
-                {
-                    proxy = Block.core.Tasker.GetProxy();
-                }
-
-                // Select proxy
-                switch (type)
-                {
-                    case "HTTP":
-                        request.Proxy = HttpProxyClient.Parse(proxy);
-                        break;
-                    case "SOCKS4":
-                        request.Proxy = Socks4ProxyClient.Parse(proxy);
-                        break;
-                    case "SOCKS4A":
-                        request.Proxy = Socks4AProxyClient.Parse(proxy);
-                        break;
-                    case "SOCKS5":
-                        request.Proxy = Socks5ProxyClient.Parse(proxy);
-                        break;
-                }
-            }
+            // Set proxy
+            request.Proxy = Block.core.ProxyController.Get();
 
             // Handle errors
             try

@@ -21,16 +21,6 @@ namespace Kotsh.Instance
         private Manager core;
 
         /// <summary>
-        /// Progression of proxies
-        /// </summary>
-        private int proxy_i = 0;
-
-        /// <summary>
-        /// Proxy Regex
-        /// </summary>
-        private string proxyRegex = @"\d{1,3}(\.\d{1,3}){3}:\d{1,5}";
-
-        /// <summary>
         /// Store the core instance
         /// </summary>
         /// <param name="core">Kotsh instance</param>
@@ -68,45 +58,6 @@ namespace Kotsh.Instance
                     // Threads are set
                     return core.threads;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Get a proxy and increment progression
-        /// </summary>
-        /// <param name="increment">If true, it will increment proxies</param>
-        /// <returns>Proxy as host:port</returns>
-        public string GetProxy(bool increment = false)
-        {
-            // Check proxies
-            if (this.proxy_i >= core.Proxies.Count)
-            {
-                this.proxy_i = 0;
-            }
-
-            // Get proxy
-            string host = core.Proxies.Keys[this.proxy_i];
-            string port = core.Proxies.Get(host);
-
-            // Associate proxy
-            string proxy = host + ":" + port;
-
-            // Increment proxy
-            if (increment)
-            {
-                this.proxy_i++;
-            }
-
-            // Parse proxy
-            Match match = Regex.Match(proxy, proxyRegex);
-            if (match.Success)
-            {
-                return match.Groups[0].Value;
-            }
-            else
-            {
-                // Recursive call
-                return GetProxy();
             }
         }
 

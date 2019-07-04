@@ -30,6 +30,7 @@ namespace Kotsh
         public FileHelper FileHelper;
         public Tasker Tasker;
         public Handler Handler;
+        public ProxyController ProxyController;
 
         /// <summary>
         /// Non-user accessibles instances
@@ -54,26 +55,7 @@ namespace Kotsh
         /// <summary>
         /// Settings used for the run
         /// </summary>
-        public NameValueCollection runSettings = new NameValueCollection()
-        {
-            { "ProxyProtocol", "HTTP" }
-        };
-
-        /// <summary>
-        /// Array with proxies
-        /// </summary>
-        public NameValueCollection Proxies = new NameValueCollection();
-
-        /// <summary>
-        /// Supported protocols for proxies
-        /// </summary>
-        public string[] ProxiesProtocols = new[]
-        {
-            "HTTP",
-            "SOCKS4",
-            "SOCKS4A",
-            "SOCKS5"
-        };
+        public NameValueCollection runSettings = new NameValueCollection();
 
         /// <summary>
         /// Default settings
@@ -100,8 +82,11 @@ namespace Kotsh
             this.FileHelper = new FileHelper(this);
             this.Tasker = new Tasker(this);
             this.Handler = new Handler(this);
+
+            // Not in method invocation
             this.RunStatistics = new RunStatistics(this);
             this.ProgramStatistics = new ProgramStatistics(this);
+            this.ProxyController = new ProxyController(this);
 
             // Execution
             execution.Invoke(this, this.Program, this.Console, this.Input, this.FileHelper, this.Tasker, this.Handler);

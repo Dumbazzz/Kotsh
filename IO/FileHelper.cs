@@ -178,24 +178,22 @@ namespace Kotsh.IO
             // Choose the proxylist
             ChooseFile("Select a proxylist", "Proxylist (.txt)|*.txt");
 
+            // Ask and save protocol
+            string protocol = core.Input.AskChoice("Choose proxy protocol", new string[] {
+                "HTTP", "SOCKS4", "SOCKS4A", "SOCKS5"
+            });
+
             // Execute line by line
             Execute((line) =>
             {
-                // Split line
-                string host = line.Split(':')[0];
-                string port = line.Split(':')[1];
-
-                // Store proxy
-                core.Proxies.Add(host, port);
+                // Add proxy
+                core.ProxyController.Add(line, protocol);
 
                 // Exit lambda
                 return 0;
             });
 
-            // Ask and save protocol
-            core.runSettings["ProxyProtocol"] = core.Input.AskChoice("Choose proxy protocol", new string[] {
-                "HTTP", "SOCKS4", "SOCKS4A", "SOCKS5"
-            });
+            
         }
     }
 }
