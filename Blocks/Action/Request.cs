@@ -185,8 +185,7 @@ namespace Kotsh.Blocks
         /// </summary>
         /// <param name="is_retry">If true, it will retry</param>
         /// <param name="can_be_null">If true, it will accept blank responses</param>
-        /// <param name="auto_retry">Will retry the request on exception</param>
-        public void Execute(bool is_retry = false, bool can_be_null = false, bool auto_retry = true)
+        public void Execute(bool is_retry = false, bool can_be_null = false)
         {
             // Check if proxies are used
             if (Block.core.Proxies.Count > 0)
