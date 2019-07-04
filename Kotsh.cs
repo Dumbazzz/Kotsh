@@ -18,7 +18,7 @@ namespace Kotsh
         /// <summary>
         /// Kotsh details
         /// </summary>
-        public string version = "0.1";
+        public string version = "0.2";
         public string releaseMode = "DEV";
 
         /// <summary>
