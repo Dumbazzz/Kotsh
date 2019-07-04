@@ -33,7 +33,7 @@ namespace Kotsh.Blocks.Action
         public string ByDelimiter(string variable, string left, string right)
         {
             // Substring it
-            string value = Block.Source.full.ToString().Substring(left, right);
+            string value = Block.Source.Full.ToString().Substring(left, right);
 
             // Add to dictionary
             Block.Dictionary.Add(variable, value);
@@ -51,7 +51,7 @@ namespace Kotsh.Blocks.Action
         public string ByJSON(string variable, string key)
         {
             // Get last response
-            string data = Block.Source.data;
+            string data = Block.Source.Data;
 
             // Find value
             string value = "";
@@ -94,7 +94,7 @@ namespace Kotsh.Blocks.Action
         public string ByRegex(string variable, string pattern)
         {
             // Get last response
-            string data = Block.Source.data;
+            string data = Block.Source.Data;
 
             // Apply regex
             Regex regex = new Regex(pattern);

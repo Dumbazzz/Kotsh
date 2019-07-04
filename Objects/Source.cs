@@ -20,27 +20,48 @@ namespace Kotsh.Objects
             this.Block = block;
         }
 
-        public void Reset()
-        {
-            // Reset variables
-            data = default;
-            status = default;
-            full = default;
-        }
-
         /// <summary>
         /// Response data
         /// </summary>
-        public string data { get; set; } = "";
+        public string Data { get; set; } = "";
 
         /// <summary>
         /// HTTP Status
         /// </summary>
-        public string status { get; set; } = "";
+        public string Status { get; set; } = "";
 
         /// <summary>
         /// Full response from xNet
         /// </summary>
-        public HttpResponse full { get; set; }
+        public HttpResponse Full { get; set; }
+
+        /// <summary>
+        /// Reset all values
+        /// </summary>
+        public void Reset()
+        {
+            // Reset variables
+            Data = default;
+            Status = default;
+            Full = default;
+        }
+
+        /// <summary>
+        /// Return header value if exists
+        /// </summary>
+        /// <param name="key">Header name</param>
+        /// <returns>Value</returns>
+        public string GetHeader(string key)
+        {
+            // Check if header is set
+            if (Full.ContainsHeader(key))
+            {
+                return Full[key];
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -241,13 +241,13 @@ namespace Kotsh.Blocks
         private void AssignResponses(HttpResponse res)
         {
             // Data response (JSON, HTML, XML, etc...)
-            Block.Source.data = res.ToString();
+            Block.Source.Data = res.ToString();
 
             // Status code
-            Block.Source.status = res.StatusCode.ToString();
+            Block.Source.Status = res.StatusCode.ToString();
 
             // Full response
-            Block.Source.full = res;
+            Block.Source.Full = res;
         }
     }
 }
