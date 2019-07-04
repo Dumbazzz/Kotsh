@@ -10,6 +10,9 @@ namespace Kotsh.Blocks.Util
         /// </summary>
         private Block Block;
 
+        /// <summary>
+        /// Dictionary with temporary variables
+        /// </summary>
         private ConcurrentDictionary<string, string> variables = new ConcurrentDictionary<string, string>();
 
         /// <summary>
@@ -22,14 +25,29 @@ namespace Kotsh.Blocks.Util
             this.Block = block;
         }
 
+        /// <summary>
+        /// Add a value
+        /// </summary>
+        /// <param name="key">Key</param>
+        /// <param name="value">Value</param>
         public void Add(string key, string value)
             => variables.TryAdd(key, value);
 
+        /// <summary>
+        /// Get a value using key
+        /// </summary>
+        /// <param name="key">Key</param>
+        /// <returns>Value</returns>
         public string Get(string key)
         {
             return variables[key];
         }
 
+        /// <summary>
+        /// Replace temporary variables in the text
+        /// </summary>
+        /// <param name="text">Original text</param>
+        /// <returns>Generated text</returns>
         public string Replace(string text)
         {
             // Make list with keys
