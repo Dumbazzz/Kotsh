@@ -240,6 +240,9 @@ namespace Kotsh.Blocks
         /// <param name="res">HttpResponse</param>
         private void AssignResponses(HttpResponse res)
         {
+            // Last URL
+            Block.Source.URL = res.Address.ToString();
+
             // Data response (JSON, HTML, XML, etc...)
             Block.Source.Data = res.ToString();
 

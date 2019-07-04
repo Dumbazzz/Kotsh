@@ -21,6 +21,11 @@ namespace Kotsh.Objects
         }
 
         /// <summary>
+        /// Last URL
+        /// </summary>
+        public string URL { get; set; } = "";
+
+        /// <summary>
         /// Response data
         /// </summary>
         public string Data { get; set; } = "";
@@ -41,6 +46,7 @@ namespace Kotsh.Objects
         public void Reset()
         {
             // Reset variables
+            URL = default;
             Data = default;
             Status = default;
             Full = default;
