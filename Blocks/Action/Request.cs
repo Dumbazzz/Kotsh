@@ -253,16 +253,8 @@ namespace Kotsh.Blocks
             }
             catch (System.Exception ex)
             {
-                if (ex is ProxyException || ex is HttpException)
-                {
-                    // HttpException => Dead/Banned proxy
-                    Block.core.RunStatistics.Increment(Type.BANNED);
-                }
-                else
-                {
-                    // GLobal Exception => Unknown error, retry
-                    Block.core.RunStatistics.Increment(Type.RETRY);
-                }
+                // Push retry
+                Block.core.RunStatistics.Increment(Type.RETRY);
                 
                 // Relaunch after issue
                 Execute();
