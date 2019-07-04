@@ -30,7 +30,6 @@ namespace Kotsh
         public FileHelper FileHelper;
         public Tasker Tasker;
         public Handler Handler;
-        public Block Block;
 
         /// <summary>
         /// Non-user accessibles instances
@@ -92,7 +91,7 @@ namespace Kotsh
         /// <summary>
         /// Initialize modules
         /// </summary>
-        public Manager(System.Action<Manager, ProgramManager, Console, Input, FileHelper, Tasker, Handler, Block> execution)
+        public Manager(System.Action<Manager, ProgramManager, Console, Input, FileHelper, Tasker, Handler> execution)
         {
             // Initialize modules
             this.Program = new ProgramManager(this);
@@ -101,12 +100,11 @@ namespace Kotsh
             this.FileHelper = new FileHelper(this);
             this.Tasker = new Tasker(this);
             this.Handler = new Handler(this);
-            this.Block = new Block(this);
             this.RunStatistics = new RunStatistics(this);
             this.ProgramStatistics = new ProgramStatistics(this);
 
             // Execution
-            execution.Invoke(this, this.Program, this.Console, this.Input, this.FileHelper, this.Tasker, this.Handler, this.Block);
+            execution.Invoke(this, this.Program, this.Console, this.Input, this.FileHelper, this.Tasker, this.Handler);
         }
     }
 }
