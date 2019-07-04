@@ -252,16 +252,26 @@ namespace Kotsh.Blocks
                     Execute(true);
                 }
             }
-            catch
+            catch (System.Exception ex)
             {
-                if (auto_retry)
+                if (ex is ProxyException || ex is HttpException)
                 {
-                    // Increment retry
-                    Block.core.RunStatistics.Increment(Type.RETRY);
-
-                    // Response is null, relaunching it
-                    Execute();
+                    // HttpException => Dead/Banned proxy
+                    Block.core.RunStatistics.Increment(Type.BANNED);
                 }
+                else
+                {
+                    // GLobal Exception => Unknown error, retry
+                    Block.core.RunStatistics.Increment(Type.RETRY);
+                }
+                
+                // Relaunch after issue
+                Execute();
+            }
+            finally
+            {
+                // Dispose the request
+                request?.Dispose();
             }
         }
 
