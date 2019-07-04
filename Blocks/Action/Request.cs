@@ -219,7 +219,7 @@ namespace Kotsh.Blocks
                     Execute(true);
                 }
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
                 // Push retry
                 Block.core.RunStatistics.Increment(Type.RETRY);
