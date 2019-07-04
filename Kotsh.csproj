@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\Action\KeyCheck.cs" />
     <Compile Include="Blocks\Util\Dictionary.cs" />
     <Compile Include="Instance\ProxyController.cs" />
     <Compile Include="Kotsh.cs" />

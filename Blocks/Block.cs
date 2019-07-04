@@ -1,4 +1,4 @@
-using Kotsh.Blocks.Action;
+﻿using Kotsh.Blocks.Action;
 using Kotsh.Blocks.Util;
 using Kotsh.Objects;
 using System.Collections.Generic;
@@ -26,6 +26,7 @@ namespace Kotsh.Blocks
         /// </summary>
         public StringUtil StringUtil;
         public Dictionary Dictionary;
+        public KeyCheck KeyCheck;
 
         /// <summary>
         /// Objects
@@ -51,6 +52,7 @@ namespace Kotsh.Blocks
             this.Parse = new Parse(this);
             this.StringUtil = new StringUtil(this);
             this.Dictionary = new Dictionary(this);
+            this.KeyCheck = new KeyCheck(this);
             this.Source = new Source(this);
         }
 
@@ -70,7 +72,7 @@ namespace Kotsh.Blocks
             {
                 // Check if running is allowed
                 if (running)
-                {
+                { 
                     // Invoke method
                     method.Invoke();
                 }
