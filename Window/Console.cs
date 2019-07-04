@@ -162,6 +162,15 @@ namespace Kotsh.Window
             // Display author and version
             ColorConsole.WriteLine(subtitle, Color.Lime);
 
+            // Format Kotsh message
+            string kotsh = string.Format("Made using Kotsh {0} | Release Type: {1}", core.version, core.releaseMode);
+
+            // Center message
+            ColorConsole.SetCursorPosition((System.Console.WindowWidth - kotsh.Length) / 2, System.Console.CursorTop);
+
+            // Display author and version
+            ColorConsole.WriteLine(kotsh, Color.Wheat);
+
             // Break line
             ColorConsole.WriteLine();
         }
