@@ -122,7 +122,7 @@ namespace Kotsh.Filter
                 }
             }
 
-            
+
 
             // Render file
             string line = response.combo;

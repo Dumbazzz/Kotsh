@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kotsh.Models
+﻿namespace Kotsh.Models
 {
     /// <summary>
     /// Provider is every source that can be used for parsing and key checking

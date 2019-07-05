@@ -223,7 +223,7 @@ namespace Kotsh.Blocks
             {
                 // Push retry
                 Block.core.RunStatistics.Increment(Type.RETRY);
-                
+
                 // Relaunch after issue
                 Execute();
             }

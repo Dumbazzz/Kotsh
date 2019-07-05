@@ -55,7 +55,7 @@ namespace Kotsh.Instance
                 if (core.threads > lines)
                 {
                     // Too much threads, set 1 thread
-                    return 1; 
+                    return 1;
                 }
                 else
                 {

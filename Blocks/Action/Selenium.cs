@@ -87,7 +87,8 @@ namespace Kotsh.Blocks.Action
             try
             {
                 Driver.Navigate().GoToUrl(URL);
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 // Push retry
                 Block.core.RunStatistics.Increment(Models.Type.RETRY);
@@ -188,13 +189,14 @@ namespace Kotsh.Blocks.Action
                 WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout));
 
                 // Wait
-                return wait.Until(driver => ((IJavaScriptExecutor) driver).ExecuteScript("return document.readyState").Equals("complete"));
-            } catch (Exception)
+                return wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
+            }
+            catch (Exception)
             {
                 return false;
             }
-        } 
-        
+        }
+
         /// <summary>
         /// Wait for element
         /// WARNING: This element must be visible
@@ -242,7 +244,8 @@ namespace Kotsh.Blocks.Action
                 // Save informations into the source
                 Block.Source.Data = Driver.PageSource;
                 Block.Source.URL = Driver.Url;
-            } catch (Exception) { }
+            }
+            catch (Exception) { }
 
             // Continue instance
             return this;
@@ -262,7 +265,8 @@ namespace Kotsh.Blocks.Action
                 // Save informations into the source
                 Block.Source.Data = Driver.PageSource;
                 Block.Source.URL = Driver.Url;
-            } catch (Exception) { }
+            }
+            catch (Exception) { }
 
             // Continue instance
             return this;
@@ -303,7 +307,8 @@ namespace Kotsh.Blocks.Action
                 // Save informations into the source
                 Block.Source.Data = Driver.PageSource;
                 Block.Source.URL = Driver.Url;
-            } catch (Exception) { }
+            }
+            catch (Exception) { }
 
             // Continue instance
             return this;

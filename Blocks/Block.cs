@@ -74,7 +74,7 @@ namespace Kotsh.Blocks
             {
                 // Check if running is allowed
                 if (running)
-                { 
+                {
                     // Invoke method
                     method.Invoke();
                 }

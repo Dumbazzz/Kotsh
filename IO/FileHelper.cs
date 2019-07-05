@@ -190,7 +190,7 @@ namespace Kotsh.IO
                 core.ProxyController.Add(line, protocol);
             });
 
-            
+
         }
     }
 }
