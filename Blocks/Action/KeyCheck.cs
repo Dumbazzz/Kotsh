@@ -27,6 +27,16 @@ namespace Kotsh.Blocks.Action
         private string Data = "";
 
         /// <summary>
+        /// Use a callback on error
+        /// </summary>
+        private bool UseCallback = false;
+
+        /// <summary>
+        /// Callback on error
+        /// </summary>
+        private System.Action CallbackOnError;
+
+        /// <summary>
         /// Set as BAN if no key match is found
         /// </summary>
         private bool BanIfNotFound = true;
@@ -55,6 +65,23 @@ namespace Kotsh.Blocks.Action
                     Data = Block.Source.URL;
                     break;
             }
+
+            // Continue method
+            return this;
+        }
+
+        /// <summary>
+        /// This callback will get called if an error occur, like a FAIL, BAN or RETRY type
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public KeyCheck ActionOnError(System.Action callback)
+        {
+            // Save callback
+            CallbackOnError = callback;
+
+            // Enable callback
+            UseCallback = true;
 
             // Continue method
             return this;
@@ -140,6 +167,10 @@ namespace Kotsh.Blocks.Action
             {
                 // Stop block execution
                 Block.Stop();
+
+                // Call the callback
+                if (UseCallback)
+                    CallbackOnError.Invoke();
             }
 
             // Reset ban once checked
@@ -187,6 +218,10 @@ namespace Kotsh.Blocks.Action
             {
                 // Stop block execution
                 Block.Stop();
+
+                // Call the callback
+                if (UseCallback)
+                    CallbackOnError.Invoke();
             }
 
             // Reset ban once checked
