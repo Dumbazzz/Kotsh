@@ -21,7 +21,7 @@ namespace Kotsh.Blocks.Action
         /// <summary>
         /// Selenium Web Driver
         /// </summary>
-        private IWebDriver Driver;
+        public IWebDriver Driver;
 
         /// <summary>
         /// Element selector
