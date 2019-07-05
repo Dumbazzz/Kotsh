@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Kotsh.Models
 {
@@ -20,7 +20,7 @@ namespace Kotsh.Models
         /// <summary>
         /// Captured elements for the combo
         /// </summary>
-        public NameValueCollection capture = new NameValueCollection();
+        public Dictionary<string, string> capture = new Dictionary<string, string>();
 
         /// <summary>
         /// Constructor allow to set a combo or code

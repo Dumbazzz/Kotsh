@@ -99,25 +99,30 @@ namespace Kotsh.Filter
             // Increment stats
             core.RunStatistics.Increment(response.type);
 
-            // Get capture
-            var items = response.capture.AllKeys.SelectMany(response.capture.GetValues, (k, v) => new { key = k, value = v });
-
             // Render capture
             StringBuilder capture = new StringBuilder();
 
-            // Loop
-            var last = items.Last();
-            foreach (var item in items)
+            // Add capture
+            if (response.capture.Count > 0)
             {
-                // Append
-                capture.Append(item.key.ToUpper() + "=" + item.value);
+                // Get last value
+                var last = response.capture.Last();
 
-                // Add separator
-                if (!item.Equals(last))
+                // Loop
+                foreach (var name in response.capture.Keys)
                 {
-                    capture.Append(" | ");
+                    // Append
+                    capture.Append(name.ToUpper() + "=" + response.capture[name]);
+
+                    // Add separator
+                    if (!name.Equals(last.Key))
+                    {
+                        capture.Append(" | ");
+                    }
                 }
             }
+
+            
 
             // Render file
             string line = response.combo;
