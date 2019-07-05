@@ -1,4 +1,4 @@
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -175,20 +175,53 @@ namespace Kotsh.Blocks.Action
         }
 
         /// <summary>
-        /// Wait for element
+        /// Wait until the page load
+        /// WARNING: This does not always works
         /// </summary>
-        /// <param name="timeout">Timeout, default 30 000ms</param>
-        /// <returns>Selenium instance</returns>
-        public IWebElement WaitForSelector(int timeout = 30000)
+        /// <param name="timeout">Timeout, default to 20 000ms</param>
+        /// <returns>Boolean</returns>
+        public bool WaitForPageLoad(int timeout = 20000)
         {
             try
             {
                 // Make WebDriverWait instance
-                WebDriverWait wait = new WebDriverWait(Driver, System.TimeSpan.FromMilliseconds(timeout));
+                WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout));
+
+                // Wait
+                return wait.Until(driver => ((IJavaScriptExecutor) driver).ExecuteScript("return document.readyState").Equals("complete"));
+            } catch (Exception)
+            {
+                return false;
+            }
+        } 
+        
+        /// <summary>
+        /// Wait for element
+        /// WARNING: This element must be visible
+        /// </summary>
+        /// <param name="timeout">Timeout, default 20 000ms</param>
+        /// <returns>Selenium instance</returns>
+        public IWebElement WaitForSelector(int timeout = 20000)
+        {
+            try
+            {
+                // Make WebDriverWait instance
+                WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout));
 
                 // Wait
                 return wait.Until(ExpectedConditions.ElementIsVisible(Selector));
-            } catch (NoSuchElementException)
+            }
+            catch (ElementNotVisibleException)
+            {
+                Console.WriteLine($"No such element: {Selector.ToString()} could be found.");
+                return null;
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine($"No such element: {Selector.ToString()} could be found.");
+                return null;
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -201,12 +234,15 @@ namespace Kotsh.Blocks.Action
         /// <returns>Selenium instance</returns>
         public Selenium FillInput(string value)
         {
-            // Fill element
-            Driver.FindElement(Selector).SendKeys(Block.Dictionary.Replace(value));
+            try
+            {
+                // Fill element
+                Driver.FindElement(Selector).SendKeys(Block.Dictionary.Replace(value));
 
-            // Save informations into the source
-            Block.Source.Data = Driver.PageSource;
-            Block.Source.URL = Driver.Url;
+                // Save informations into the source
+                Block.Source.Data = Driver.PageSource;
+                Block.Source.URL = Driver.Url;
+            } catch (Exception) { }
 
             // Continue instance
             return this;
