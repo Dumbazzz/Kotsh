@@ -104,10 +104,19 @@ namespace Kotsh.Filter
 
             // Render capture
             StringBuilder capture = new StringBuilder();
+
+            // Loop
+            var last = items.Last();
             foreach (var item in items)
             {
                 // Append
                 capture.Append(item.key.ToUpper() + "=" + item.value);
+
+                // Add separator
+                if (!item.Equals(last))
+                {
+                    capture.Append(" | ");
+                }
             }
 
             // Render file
