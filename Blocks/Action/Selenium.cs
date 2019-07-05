@@ -29,9 +29,9 @@ namespace Kotsh.Blocks.Action
         private By Selector;
 
         /// <summary>
-        /// Default Chrome Path
+        /// Default Chrome Directory Path
         /// </summary>
-        public string ChromeDriverPath = "C:\\Program Files (x86)\\Google\\Chrome\\Application";
+        public string ChromePath = "C:\\Program Files (x86)\\Google\\Chrome\\Application";
 
         /// <summary>
         /// Default options for ChromeDriver
@@ -62,7 +62,7 @@ namespace Kotsh.Blocks.Action
             options.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
 
             // Create a service
-            service = ChromeDriverService.CreateDefaultService(ChromeDriverPath);
+            service = ChromeDriverService.CreateDefaultService(ChromePath);
 
             // Disable log
             service.EnableVerboseLogging = false;
