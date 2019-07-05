@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -76,11 +76,25 @@ namespace Kotsh.Blocks.Action
         /// <returns>Selenium instance</returns>
         public Selenium Start(string URL)
         {
+            // Set proxy
+            if (Block.core.ProxyController.UseProxy)
+                options.AddArgument("--proxy-server=" + Block.core.ProxyController.GetURLProxy());
+
             // Open browser
             Driver = new ChromeDriver(service, options);
 
             // Open URL
-            Driver.Navigate().GoToUrl(URL);
+            try
+            {
+                Driver.Navigate().GoToUrl(URL);
+            } catch (Exception)
+            {
+                // Push retry
+                Block.core.RunStatistics.Increment(Models.Type.RETRY);
+
+                // Relaunch after issue
+                Start(URL);
+            }
 
             // Save informations into the source
             Block.Source.Data = Driver.PageSource;
