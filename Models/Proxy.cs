@@ -1,4 +1,5 @@
 ﻿using Leaf.xNet;
+using System.Text;
 
 namespace Kotsh.Models
 {
@@ -141,6 +142,51 @@ namespace Kotsh.Models
                 default:
                     return null;
             }
+        }
+
+        /// <summary>
+        /// Return a proxy with url form (e.g.: protocol://[user:pass@]host:port)
+        /// </summary>
+        /// <returns>Proxy as URL</returns>
+        public string GetURLProxy()
+        {
+            // Make Selenium Proxy
+            StringBuilder proxy = new StringBuilder();
+
+            // Switch type
+            switch (Type)
+            {
+                case ProxyType.HTTP:
+                    proxy.Append("http://");
+                    break;
+
+                case ProxyType.Socks4:
+                    proxy.Append("socks4://");
+                    break;
+
+                case ProxyType.Socks4A:
+                    proxy.Append("socks4a://");
+                    break;
+
+                case ProxyType.Socks5:
+                    proxy.Append("socks5://");
+                    break;
+
+                default:
+                    return null;
+            }
+
+            // Set crendetials
+            if (UseCredentials())
+            {
+                proxy.Append(GetCredentials() + "@");
+            }
+
+            // Set proxy
+            proxy.Append(GetProxy());
+
+            // Return proxy
+            return proxy.ToString();
         }
     }
 }

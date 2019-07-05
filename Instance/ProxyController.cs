@@ -114,5 +114,34 @@ namespace Kotsh.Instance
             }
         }
 
+        /// <summary>
+        /// Return a proxy as URL
+        /// </summary>
+        public string GetURLProxy()
+        {
+            // Check proxy are enabled
+            if (UseProxy && Count > 0)
+            {
+                // Check progression
+                if (Progression >= Count)
+                {
+                    // Reset progression
+                    Progression = 0;
+                }
+
+                // Get a proxy
+                Proxy proxy = Proxies[Progression];
+
+                // Increment progression
+                Progression++;
+
+                // Return proxy
+                return proxy.GetURLProxy();
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
