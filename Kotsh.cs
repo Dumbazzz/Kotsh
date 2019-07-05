@@ -18,8 +18,8 @@ namespace Kotsh
         /// <summary>
         /// Kotsh details
         /// </summary>
-        public string version = "0.2";
-        public string releaseMode = "DEV";
+        public string version = "0.3";
+        public string releaseMode = "RC";
 
         /// <summary>
         /// Kotsh instances
