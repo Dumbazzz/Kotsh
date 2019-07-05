@@ -55,6 +55,9 @@ namespace Kotsh.Blocks.Action
             // Set options
             options = new ChromeOptions();
 
+            // Disable extensions
+            options.AddArgument("--disable-extensions");
+
             // Disable images
             options.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
 
