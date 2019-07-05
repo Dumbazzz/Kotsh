@@ -20,13 +20,14 @@ namespace Kotsh.Blocks
         /// </summary>
         public Request Request;
         public Parse Parse;
+        public KeyCheck KeyCheck;
+        public Selenium Selenium;
 
         /// <summary>
         /// Utilities blocks
         /// </summary>
         public StringUtil StringUtil;
         public Dictionary Dictionary;
-        public KeyCheck KeyCheck;
 
         /// <summary>
         /// Objects
@@ -50,9 +51,10 @@ namespace Kotsh.Blocks
             // Start instances
             this.Request = new Request(this);
             this.Parse = new Parse(this);
+            this.KeyCheck = new KeyCheck(this);
+            this.Selenium = new Selenium(this);
             this.StringUtil = new StringUtil(this);
             this.Dictionary = new Dictionary(this);
-            this.KeyCheck = new KeyCheck(this);
             this.Source = new Source(this);
         }
 
