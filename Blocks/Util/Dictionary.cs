@@ -40,7 +40,13 @@ namespace Kotsh.Blocks.Util
         /// <returns>Value</returns>
         public string Get(string key)
         {
-            return variables[key];
+            if (variables.ContainsKey(key))
+            {
+                return variables[key];
+            } else
+            {
+                return null;
+            }
         }
 
         /// <summary>
