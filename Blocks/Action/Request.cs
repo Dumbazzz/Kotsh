@@ -1,6 +1,8 @@
 using Kotsh.Models;
 using Leaf.xNet;
+using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Kotsh.Blocks
 {
@@ -38,7 +40,7 @@ namespace Kotsh.Blocks
         /// <summary>
         /// Target URL
         /// </summary>
-        private string URL;
+        private Uri URL;
 
         /// <summary>
         /// HTTP Method
@@ -96,7 +98,7 @@ namespace Kotsh.Blocks
             };
 
             // Store URL
-            this.URL = Block.Dictionary.Replace(URL);
+            this.URL = new Uri(Block.Dictionary.Replace(URL));
 
             // Return methods
             return this;
@@ -162,23 +164,21 @@ namespace Kotsh.Blocks
         /// <summary>
         /// Make cookie jar and add as header
         /// </summary>
-        /// <param name="cookies">Cookie Dictionnary as key;value</param>
-        public Request AddCookies(Dictionary<string, string> cookies)
+        /// <param name="name">Cookie name</param>
+        /// <param name="value">Cookie value</param>
+        public Request AddCookies(string name, string value)
         {
-            // Prepare header
-            string header = "";
+            // Create cookie
+            Cookie cookie = new Cookie(name, value);
 
-            // Foreach cookies
-            foreach (var cookie in cookies)
-            {
-                header += Block.Dictionary.Replace(cookie.Key) + "=" + Block.Dictionary.Replace(cookie.Value) + "&";
-            }
+            // Set domain
+            cookie.Domain = URL.Host;
 
-            // Trim last '&'
-            header = header.Trim('&');
+            // Set path
+            cookie.Path = URL.PathAndQuery;
 
-            // Send header
-            this.AddHeader("Cookie", header);
+            // Add cookie
+            cookies.Add(cookie);
 
             // Return method
             return this;
@@ -216,7 +216,7 @@ namespace Kotsh.Blocks
                 if (!can_be_null && response.ToString().Length < 1)
                 {
                     // Increment retry
-                    Block.core.RunStatistics.Increment(Type.RETRY);
+                    Block.core.RunStatistics.Increment(Models.Type.RETRY);
 
                     // Response is null, relaunching it
                     Execute(true);
@@ -225,7 +225,7 @@ namespace Kotsh.Blocks
             catch (System.Exception)
             {
                 // Push retry
-                Block.core.RunStatistics.Increment(Type.RETRY);
+                Block.core.RunStatistics.Increment(Models.Type.RETRY);
 
                 // Relaunch after issue
                 Execute();
