@@ -45,9 +45,6 @@ namespace Kotsh.Blocks.Util
         {
             return random.Next(min, max);
         }
-    }
-}
-
 
         /// <summary>
         /// Count occurrences in the source
@@ -58,7 +55,9 @@ namespace Kotsh.Blocks.Util
         {
             // Get source
             string haystack = Block.Source.Data;
-            
+
             // Return occurences count
             return new Regex(Regex.Escape(needle)).Matches(haystack).Count;
         }
+    }
+}
