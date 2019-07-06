@@ -1,7 +1,8 @@
 ﻿<p align="center"><img src="https://x0.at/H6v.png" width=128></p>
 
 # Kotsh
-Kotsh is a C# library that can be used to make your own checker !
+Kotsh is a C# library that can be used to make your own checker ! 
+Consider Kotsh as an hybrid between [OpenBullet](https://github.com/openbullet/openbullet) and doing a checker from scratch, this library is definitely a time saver.
 
 ### Features
 - Easy to code. A basic checker will takes you approximately 1 hour to code.
