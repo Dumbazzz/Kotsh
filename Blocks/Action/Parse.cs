@@ -100,7 +100,7 @@ namespace Kotsh.Blocks.Action
             Regex regex = new Regex(pattern);
 
             // Get capture
-            string value = regex.Match(data).Groups[1].ToString();
+            string value = regex.Match(data).Groups[1].Value;
 
             // Add to dictionary
             Block.Dictionary.Add(variable, value);
