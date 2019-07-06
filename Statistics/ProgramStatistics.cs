@@ -109,7 +109,7 @@ namespace Kotsh.Statistics
             int end = Get("checked");
 
             // Calculate CPM
-            int cpm = (start - end) * 20;
+            int cpm = (end - start) * 20;
 
             // Save value
             Set("cpm", cpm);
@@ -134,7 +134,7 @@ namespace Kotsh.Statistics
             int end = Get("tries");
 
             // Calculate RPM
-            int rpm = (start - end) * 20;
+            int rpm = (end - start) * 20;
 
             // Save value
             Set("rpm", rpm);
