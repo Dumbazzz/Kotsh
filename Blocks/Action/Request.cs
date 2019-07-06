@@ -1,7 +1,6 @@
 using Kotsh.Models;
 using Leaf.xNet;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Kotsh.Blocks
 {
@@ -13,10 +12,18 @@ namespace Kotsh.Blocks
         /// <summary>
         /// Available methods
         /// </summary>
-        private string[] methods = {
-            "GET",
-            "POST"
-        };
+        public enum Methods
+        {
+            /// <summary>
+            /// GET method
+            /// </summary>
+            GET,
+
+            /// <summary>
+            /// POST method
+            /// </summary>
+            POST
+        }
 
         /// <summary>
         /// Request builder (public to let user do custom things)
@@ -31,7 +38,7 @@ namespace Kotsh.Blocks
         /// <summary>
         /// HTTP Method
         /// </summary>
-        private string method;
+        private Methods method;
 
         /// <summary>
         /// POST body
@@ -91,21 +98,10 @@ namespace Kotsh.Blocks
         /// Add a method
         /// </summary>
         /// <param name="method">Method (GET, POST, etc...)</param>
-        public Request Method(string method)
+        public Request Method(Methods method)
         {
-            // Make value uppercase
-            method = method.ToUpper();
-
-            // Check if method is available
-            if (methods.Any(method.Contains))
-            {
-                // Store method
-                this.method = method;
-            }
-            else
-            {
-                System.Console.WriteLine("-> Method is not available: " + method);
-            }
+            // Save method
+            this.method = method;
 
             // Return methods
             return this;
@@ -196,7 +192,7 @@ namespace Kotsh.Blocks
                 HttpResponse response;
 
                 // Sort method
-                if (method == "GET")
+                if (method == Methods.GET)
                 {
                     response = request.Get(URL);
                 }
