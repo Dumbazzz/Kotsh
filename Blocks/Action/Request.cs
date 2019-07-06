@@ -185,6 +185,19 @@ namespace Kotsh.Blocks
         }
 
         /// <summary>
+        /// Clear cookie container
+        /// </summary>
+        /// <returns>Instance</returns>
+        public Request ClearCookies()
+        {
+            // Clear cookie container
+            cookies.Clear();
+
+            // Return method
+            return this;
+        }
+
+        /// <summary>
         /// Set proxy (if defined) and execute action
         /// </summary>
         /// <param name="can_be_null">If true, it will accept blank responses</param>
