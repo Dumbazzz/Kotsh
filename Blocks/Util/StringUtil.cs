@@ -47,11 +47,11 @@ namespace Kotsh.Blocks.Util
         }
 
         /// <summary>
-        /// Count occurences in the source
+        /// Count occurrences in the source
         /// </summary>
         /// <param name="needle">String to check</param>
         /// <returns>Count as integer</returns>
-        public int CountOccurences(string needle)
+        public int CountOccurrences(string needle)
         {
             // Get source
             string haystack = Block.Source.Data;
