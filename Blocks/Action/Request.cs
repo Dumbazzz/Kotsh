@@ -183,9 +183,8 @@ namespace Kotsh.Blocks
         /// <summary>
         /// Set proxy (if defined) and execute action
         /// </summary>
-        /// <param name="is_retry">If true, it will retry</param>
         /// <param name="can_be_null">If true, it will accept blank responses</param>
-        public void Execute(bool is_retry = false, bool can_be_null = false)
+        public void Execute(bool can_be_null = false)
         {
             // Set proxy
             request.Proxy = Block.core.ProxyController.Get();
