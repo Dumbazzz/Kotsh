@@ -105,7 +105,7 @@ namespace Kotsh.Instance
                         Response res = function.Invoke(combo, new Response(combo));
 
                         // Handle banned or retry
-                        while (res.type == (Models.Type.BANNED | Models.Type.RETRY))
+                        while (res.type == Models.Type.BANNED || res.type == Models.Type.RETRY)
                         {
                             // Relaunch check
                             res = function.Invoke(combo, new Response(combo));
