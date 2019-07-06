@@ -1,5 +1,6 @@
 ﻿using Kotsh.Blocks;
 using Leaf.xNet;
+using System.Net;
 
 namespace Kotsh.Objects
 {
@@ -66,6 +67,25 @@ namespace Kotsh.Objects
             }
             else
             {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Return a cookie
+        /// </summary>
+        /// <param name="key">Cookie name</param>
+        /// <returns>Cookie array</returns>
+        public Cookie GetCookie(string key)
+        {
+            // Check if cookie exists
+            if (Full.ContainsCookie(key))
+            {
+                // Return cookie array
+                return Block.Request.cookies.GetCookies(URL)[key];
+            } else
+            {
+                // Does not exists
                 return null;
             }
         }

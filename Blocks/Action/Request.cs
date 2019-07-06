@@ -31,6 +31,11 @@ namespace Kotsh.Blocks
         public HttpRequest request;
 
         /// <summary>
+        /// Cookies
+        /// </summary>
+        public CookieStorage cookies = new CookieStorage();
+
+        /// <summary>
         /// Target URL
         /// </summary>
         private string URL;
@@ -84,7 +89,10 @@ namespace Kotsh.Blocks
                 ConnectTimeout = timeout,
 
                 // Set Chrome UA by default
-                UserAgent = Http.ChromeUserAgent()
+                UserAgent = Http.ChromeUserAgent(),
+                
+                // Cookies
+                Cookies = cookies
             };
 
             // Store URL
