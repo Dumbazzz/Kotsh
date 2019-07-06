@@ -108,29 +108,14 @@ namespace Kotsh.IO
             // Create file path
             string path = directory + "\\results\\" + core.runSettings["session_folder"] + "\\" + name + ".txt";
 
-            // Write text file
-            Stream stream = null;
-
-            try
+            // Append into file
+            using (StreamWriter sw = new StreamWriter(path, true))
             {
-                // Open stream
-                stream = new FileStream(path, FileMode.OpenOrCreate);
+                // Write into the file
+                sw.WriteLine(data);
 
-                // Append into file
-                using (StreamWriter sw = new StreamWriter(stream))
-                {
-                    // Write into the file
-                    sw.WriteLine(data);
-
-                    // Close the writer
-                    sw.Close();
-                }
-            }
-            finally
-            {
-                // Close stream
-                if (stream != null)
-                    stream.Dispose();
+                // Close the writer
+                sw.Close();
             }
         }
 
