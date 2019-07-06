@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Kotsh.Blocks.Util
 {
@@ -43,6 +44,20 @@ namespace Kotsh.Blocks.Util
         public int RandomInt(int min, int max)
         {
             return random.Next(min, max);
+        }
+
+        /// <summary>
+        /// Count occurences in the source
+        /// </summary>
+        /// <param name="needle">String to check</param>
+        /// <returns>Count as integer</returns>
+        public int CountOccurences(string needle)
+        {
+            // Get source
+            string haystack = Block.Source.Data;
+            
+            // Return occurences count
+            return new Regex(Regex.Escape(needle)).Matches(haystack).Count;
         }
     }
 }
