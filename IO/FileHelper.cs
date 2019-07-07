@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Kotsh.IO
@@ -21,6 +22,11 @@ namespace Kotsh.IO
         /// Default and last opened directory
         /// </summary>
         private string last_directory = Directory.GetCurrentDirectory();
+
+        /// <summary>
+        /// Write on Lock security (safe threading)
+        /// </summary>
+        private ReaderWriterLockSlim fileLock = new ReaderWriterLockSlim();
 
         /// <summary>
         /// This variable contains last chosen file
@@ -108,14 +114,25 @@ namespace Kotsh.IO
             // Create file path
             string path = directory + "\\results\\" + core.runSettings["session_folder"] + "\\" + name + ".txt";
 
-            // Append into file
-            using (StreamWriter sw = new StreamWriter(path, true))
-            {
-                // Write into the file
-                sw.WriteLine(data);
+            // Lock file
+            fileLock.EnterWriteLock();
 
-                // Close the writer
-                sw.Close();
+            try
+            {
+                // Append into file
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    // Write into the file
+                    sw.WriteLine(data);
+
+                    // Close the writer
+                    sw.Close();
+                }
+            }
+            finally
+            {
+                // Release lock
+                fileLock.ExitWriteLock();
             }
         }
 
