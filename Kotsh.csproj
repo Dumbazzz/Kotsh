@@ -94,7 +94,7 @@
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Proxy.cs" />
-    <Compile Include="Models\Requirements.cs" />
+    <Compile Include="Models\Rules.cs" />
     <Compile Include="Objects\Requirements.cs" />
     <Compile Include="Objects\Source.cs" />
     <Compile Include="Blocks\Util\StringUtil.cs" />
