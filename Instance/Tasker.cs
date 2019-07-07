@@ -23,6 +23,15 @@ namespace Kotsh.Instance
         /// </summary>
         private readonly Regex CredentialsRegex = new Regex("^.*:.*$");
 
+        /// <summary>
+        /// List of rules
+        /// </summary>
+        private List<Objects.Requirements> RequirementsList = new List<Objects.Requirements>();
+
+        /// <summary>
+        /// Requirement controller
+        /// </summary>
+        public RequirementsController RequirementsController = new RequirementsController();
 
         /// <summary>
         /// Store the core instance
@@ -66,6 +75,13 @@ namespace Kotsh.Instance
         }
 
         /// <summary>
+        /// Add requirements to the list
+        /// </summary>
+        /// <param name="requirements">Requirement Object</param>
+        public void AddRequirements(Objects.Requirements requirements)
+            => RequirementsList.Add(requirements);
+
+        /// <summary>
         /// Check every combo using multi-threading
         /// </summary>
         /// <param name="function">Checking function</param>
@@ -101,18 +117,31 @@ namespace Kotsh.Instance
                     // Check combo using regex
                     if (CredentialsRegex.IsMatch(combo))
                     {
-                        // Execute combo
-                        Response res = function.Invoke(combo, new Response(combo));
-
-                        // Handle banned or retry
-                        while (res.type == Models.Type.BANNED || res.type == Models.Type.RETRY)
+                        // Check requirements
+                        bool valid = true;
+                        if (RequirementsList.Count != 0)
                         {
-                            // Relaunch check
-                            res = function.Invoke(combo, new Response(combo));
+                            foreach (Objects.Requirements req in RequirementsList)
+                            {
+                                valid = RequirementsController.CheckRequirements(combo, req);
+                            }
                         }
 
-                        // Call response handler
-                        core.Handler.Check(res);
+                        if (valid)
+                        {
+                            // Execute combo
+                            Response res = function.Invoke(combo, new Response(combo));
+
+                            // Handle banned or retry
+                            while (res.type == Models.Type.BANNED || res.type == Models.Type.RETRY)
+                            {
+                                // Relaunch check
+                                res = function.Invoke(combo, new Response(combo));
+                            }
+
+                            // Call response handler
+                            core.Handler.Check(res);
+                        }
                     }
                 }
             );

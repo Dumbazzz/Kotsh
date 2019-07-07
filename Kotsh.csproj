@@ -87,12 +87,15 @@
     <Compile Include="Blocks\Action\Selenium.cs" />
     <Compile Include="Blocks\Util\Dictionary.cs" />
     <Compile Include="Instance\ProxyController.cs" />
+    <Compile Include="Instance\RequirementsController.cs" />
     <Compile Include="Kotsh.cs" />
     <Compile Include="Blocks\Action\Parse.cs" />
     <Compile Include="Blocks\Action\Request.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Proxy.cs" />
+    <Compile Include="Models\Requirements.cs" />
+    <Compile Include="Objects\Requirements.cs" />
     <Compile Include="Objects\Source.cs" />
     <Compile Include="Blocks\Util\StringUtil.cs" />
     <Compile Include="Models\ContentType.cs" />
