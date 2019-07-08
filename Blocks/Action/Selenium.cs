@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -42,7 +42,7 @@ namespace Kotsh.Blocks.Action
         /// <summary>
         /// Default timeout (60s)
         /// </summary>
-        public int Timeout = 60;
+        public int Timeout = 10;
 
         /// <summary>
         /// Ban proxy on timeout
