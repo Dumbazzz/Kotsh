@@ -467,8 +467,22 @@ namespace Kotsh.Blocks.Action
         /// <summary>
         /// Stop the driver and the window
         /// </summary>
-        public void Stop()
-            => Driver.Close();
+        /// <param name="quit">If true, the driver will dispose too</param>
+        public void Stop(bool quit = false)
+        {
+            if (quit)
+            {
+                // Close the browser and dispose the driver
+                Driver.Quit();
+            } else
+            {
+                // Close the browser
+                Driver.Close();
+            }
+
+            // Set as closed
+            BrowserOpen = false;
+        }
 
         #region Helpers
 
