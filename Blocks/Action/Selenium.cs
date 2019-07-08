@@ -1,4 +1,4 @@
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -132,8 +132,7 @@ namespace Kotsh.Blocks.Action
             Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(Timeout);
 
             // Save informations into the source
-            Block.Source.Data = Driver.PageSource;
-            Block.Source.URL = Driver.Url;
+            SaveSeleniumData();
 
             // Continue instance
             return this;
@@ -276,8 +275,7 @@ namespace Kotsh.Blocks.Action
                 Driver.FindElement(Selector).SendKeys(Block.Dictionary.Replace(value));
 
                 // Save informations into the source
-                Block.Source.Data = Driver.PageSource;
-                Block.Source.URL = Driver.Url;
+                SaveSeleniumData();
             }
             catch (Exception) { }
 
@@ -297,8 +295,7 @@ namespace Kotsh.Blocks.Action
                 Driver.FindElement(Selector).Click();
 
                 // Save informations into the source
-                Block.Source.Data = Driver.PageSource;
-                Block.Source.URL = Driver.Url;
+                SaveSeleniumData();
             }
             catch (Exception) { }
 
@@ -320,8 +317,7 @@ namespace Kotsh.Blocks.Action
             Block.Dictionary.Add(variable, text);
 
             // Save informations into the source
-            Block.Source.Data = Driver.PageSource;
-            Block.Source.URL = Driver.Url;
+            SaveSeleniumData();
 
             // Continue instance
             return this;
@@ -338,9 +334,7 @@ namespace Kotsh.Blocks.Action
             {
                 Driver.FindElement(Selector).Submit();
 
-                // Save informations into the source
-                Block.Source.Data = Driver.PageSource;
-                Block.Source.URL = Driver.Url;
+                SaveSeleniumData();
             }
             catch (Exception) { }
 
@@ -353,5 +347,19 @@ namespace Kotsh.Blocks.Action
         /// </summary>
         public void Stop()
             => Driver.Close();
+
+        #region Helpers
+
+        /// <summary>
+        /// Save status of Selenium
+        /// </summary>
+        private void SaveSeleniumData()
+        {
+            // Save informations into the source
+            Block.Source.Data = Driver.PageSource;
+            Block.Source.URL = Driver.Url;
+        }
+
+        #endregion
     }
 }
