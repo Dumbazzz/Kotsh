@@ -167,10 +167,10 @@ namespace Kotsh.Blocks.Action
             catch (Exception)
             {
                 // Push retry
-                Block.core.RunStatistics.Increment(Models.Type.RETRY);
+                Block.response.type = Models.Type.RETRY;
 
-                // Relaunch after issue
-                Navigate(URL);
+                // Stop block
+                Block.Stop();
             }
 
             // Set timeout
