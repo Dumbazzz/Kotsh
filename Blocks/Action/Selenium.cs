@@ -24,7 +24,15 @@ namespace Kotsh.Blocks.Action
         /// </summary>
         public IWebDriver Driver;
 
-        public bool BrowserOpen { get; set; } = false;
+        /// <summary>
+        /// Browser is opened or not
+        /// </summary>
+        private bool BrowserOpen { get; set; } = false;
+
+        /// <summary>
+        /// Resize the window to be small on browser/driver start
+        /// </summary>
+        public bool ResizeByDefault { get; set; } = true;
 
         /// <summary>
         /// Element selector
@@ -79,8 +87,17 @@ namespace Kotsh.Blocks.Action
             // Disable logging level
             options.AddArgument("--log-level=3");
 
+            // Set platform name
+            options.PlatformName = "Kotsh Selenium";
+
             // Set Chrome location
             options.BinaryLocation = ChromePath;
+
+            // Set default size
+            if (ResizeByDefault)
+            {
+                options.AddArgument("--window-size=300,300");
+            }
 
             // Disable images
             options.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
