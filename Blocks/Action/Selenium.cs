@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
+using System.IO;
 
 namespace Kotsh.Blocks.Action
 {
@@ -31,7 +32,7 @@ namespace Kotsh.Blocks.Action
         /// <summary>
         /// Default Chrome Directory Path
         /// </summary>
-        public string ChromePath = "C:\\Program Files (x86)\\Google\\Chrome\\Application";
+        public string ChromePath = Directory.GetCurrentDirectory();
 
         /// <summary>
         /// Default options for ChromeDriver
@@ -62,7 +63,13 @@ namespace Kotsh.Blocks.Action
             options.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
 
             // Create a service
-            service = ChromeDriverService.CreateDefaultService(ChromePath);
+            try
+            {
+                service = ChromeDriverService.CreateDefaultService(ChromePath);
+            } catch (DriverServiceNotFoundException)
+            {
+                Console.WriteLine("FATAL: chromedriver.exe does not exists!");
+            }
 
             // Disable log
             service.EnableVerboseLogging = false;
