@@ -24,6 +24,8 @@ namespace Kotsh.Blocks.Action
         /// </summary>
         public IWebDriver Driver;
 
+        public bool BrowserOpen { get; set; } = false;
+
         /// <summary>
         /// Element selector
         /// </summary>
@@ -40,9 +42,14 @@ namespace Kotsh.Blocks.Action
         public bool BanOnTimeout = true;
 
         /// <summary>
+        /// Default Chrome Driver Directory Path
+        /// </summary>
+        public string ChromeDriverPath = Directory.GetCurrentDirectory();
+
+        /// <summary>
         /// Default Chrome Directory Path
         /// </summary>
-        public string ChromePath = Directory.GetCurrentDirectory();
+        public string ChromePath = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
 
         /// <summary>
         /// Default options for ChromeDriver
@@ -69,13 +76,19 @@ namespace Kotsh.Blocks.Action
             // Disable extensions
             options.AddArgument("--disable-extensions");
 
+            // Disable logging level
+            options.AddArgument("--log-level=3");
+
+            // Set Chrome location
+            options.BinaryLocation = ChromePath;
+
             // Disable images
             options.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
 
             // Create a service
             try
             {
-                service = ChromeDriverService.CreateDefaultService(ChromePath);
+                service = ChromeDriverService.CreateDefaultService(ChromeDriverPath);
             } catch (DriverServiceNotFoundException)
             {
                 Console.WriteLine("FATAL: chromedriver.exe does not exists!");
@@ -84,14 +97,14 @@ namespace Kotsh.Blocks.Action
             // Disable log
             service.EnableVerboseLogging = false;
             service.HideCommandPromptWindow = true;
+            service.SuppressInitialDiagnosticInformation = true;
         }
 
         /// <summary>
-        /// Start browser and navigate to a page
+        /// Start the driver/browser
         /// </summary>
-        /// <param name="URL">Target URL</param>
         /// <returns>Selenium instance</returns>
-        public Selenium Start(string URL)
+        public Selenium Start()
         {
             // Set proxy
             if (Block.core.ProxyController.UseProxy)
@@ -100,6 +113,20 @@ namespace Kotsh.Blocks.Action
             // Open browser
             Driver = new ChromeDriver(service, options);
 
+            // Set browser as opened
+            BrowserOpen = true;
+
+            // Return instance
+            return this;
+        }
+
+        /// <summary>
+        /// Navigate to a page
+        /// </summary>
+        /// <param name="URL">Target URL</param>
+        /// <returns>Selenium instance</returns>
+        public Selenium Navigate(string URL)
+        {
             // Open URL
             try
             {
@@ -117,7 +144,7 @@ namespace Kotsh.Blocks.Action
                 }
 
                 // Relaunch after issue
-                Start(URL);
+                Navigate(URL);
             }
             catch (Exception)
             {
@@ -125,7 +152,7 @@ namespace Kotsh.Blocks.Action
                 Block.core.RunStatistics.Increment(Models.Type.RETRY);
 
                 // Relaunch after issue
-                Start(URL);
+                Navigate(URL);
             }
 
             // Set timeout
@@ -216,16 +243,29 @@ namespace Kotsh.Blocks.Action
         /// <returns>Boolean</returns>
         public bool WaitForPageLoad(int timeout = 20000)
         {
-            try
+            if (BrowserOpen)
             {
-                // Make WebDriverWait instance
-                WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout));
+                try
+                {
+                    // Make WebDriverWait instance
+                    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout));
 
-                // Wait
-                return wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
-            }
-            catch (Exception)
+                    // Wait
+                    return wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            } else
             {
+                // Set retry
+                Block.response.type = Models.Type.RETRY;
+
+                // Stop block
+                Block.Stop();
+
+                // Error
                 return false;
             }
         }
@@ -238,26 +278,39 @@ namespace Kotsh.Blocks.Action
         /// <returns>Selenium instance</returns>
         public IWebElement WaitForSelector(int timeout = 20000)
         {
-            try
-            {
-                // Make WebDriverWait instance
-                WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout));
+            if (BrowserOpen) {
+                try
+                {
+                    // Make WebDriverWait instance
+                    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeout));
 
-                // Wait
-                return wait.Until(ExpectedConditions.ElementIsVisible(Selector));
+                    // Wait
+                    return wait.Until(ExpectedConditions.ElementIsVisible(Selector));
+                }
+                catch (ElementNotVisibleException)
+                {
+                    Console.WriteLine($"No such element: {Selector.ToString()} could be found.");
+                    return null;
+                }
+                catch (NoSuchElementException)
+                {
+                    Console.WriteLine($"No such element: {Selector.ToString()} could be found.");
+                    return null;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
-            catch (ElementNotVisibleException)
+            else
             {
-                Console.WriteLine($"No such element: {Selector.ToString()} could be found.");
-                return null;
-            }
-            catch (NoSuchElementException)
-            {
-                Console.WriteLine($"No such element: {Selector.ToString()} could be found.");
-                return null;
-            }
-            catch (Exception)
-            {
+                // Set retry
+                Block.response.type = Models.Type.RETRY;
+
+                // Stop block
+                Block.Stop();
+
+                // Error
                 return null;
             }
         }
@@ -269,18 +322,31 @@ namespace Kotsh.Blocks.Action
         /// <returns>Selenium instance</returns>
         public Selenium FillInput(string value)
         {
-            try
-            {
-                // Fill element
-                Driver.FindElement(Selector).SendKeys(Block.Dictionary.Replace(value));
+            if (BrowserOpen) {
+                try
+                {
+                    // Fill element
+                    Driver.FindElement(Selector).SendKeys(Block.Dictionary.Replace(value));
 
-                // Save informations into the source
-                SaveSeleniumData();
+                    // Save informations into the source
+                    SaveSeleniumData();
+                }
+                catch (Exception) { }
+
+                // Continue instance
+                return this;
             }
-            catch (Exception) { }
+            else
+            {
+                // Set retry
+                Block.response.type = Models.Type.RETRY;
 
-            // Continue instance
-            return this;
+                // Stop block
+                Block.Stop();
+
+                // Error
+                return null;
+            }
         }
 
         /// <summary>
@@ -289,18 +355,31 @@ namespace Kotsh.Blocks.Action
         /// <returns>Selenium instance</returns>
         public Selenium Click()
         {
-            try
-            {
-                // Click element
-                Driver.FindElement(Selector).Click();
+            if (BrowserOpen) {
+                try
+                {
+                    // Click element
+                    Driver.FindElement(Selector).Click();
 
-                // Save informations into the source
-                SaveSeleniumData();
+                    // Save informations into the source
+                    SaveSeleniumData();
+                }
+                catch (Exception) { }
+
+                // Continue instance
+                return this;
             }
-            catch (Exception) { }
+            else
+            {
+                // Set retry
+                Block.response.type = Models.Type.RETRY;
 
-            // Continue instance
-            return this;
+                // Stop block
+                Block.Stop();
+
+                // Error
+                return null;
+            }
         }
 
         /// <summary>
@@ -310,17 +389,30 @@ namespace Kotsh.Blocks.Action
         /// <returns>Selenium Instance</returns>
         public Selenium GetElement(string variable)
         {
-            // Get element
-            string text = Driver.FindElement(Selector).Text;
+            if (BrowserOpen) {
+                // Get element
+                string text = Driver.FindElement(Selector).Text;
 
-            // Save variable
-            Block.Dictionary.Add(variable, text);
+                // Save variable
+                Block.Dictionary.Add(variable, text);
 
-            // Save informations into the source
-            SaveSeleniumData();
+                // Save informations into the source
+                SaveSeleniumData();
 
-            // Continue instance
-            return this;
+                // Continue instance
+                return this;
+            }
+            else
+            {
+                // Set retry
+                Block.response.type = Models.Type.RETRY;
+
+                // Stop block
+                Block.Stop();
+
+                // Error
+                return null;
+            }
         }
 
         /// <summary>
@@ -329,17 +421,30 @@ namespace Kotsh.Blocks.Action
         /// <returns>Selenium instance</returns>
         public Selenium Submit()
         {
-            // Submit form
-            try
-            {
-                Driver.FindElement(Selector).Submit();
+            if (BrowserOpen) {
+                // Submit form
+                try
+                {
+                    Driver.FindElement(Selector).Submit();
 
-                SaveSeleniumData();
+                    SaveSeleniumData();
+                }
+                catch (Exception) { }
+
+                // Continue instance
+                return this;
             }
-            catch (Exception) { }
+            else
+            {
+                // Set retry
+                Block.response.type = Models.Type.RETRY;
 
-            // Continue instance
-            return this;
+                // Stop block
+                Block.Stop();
+
+                // Error
+                return null;
+            }
         }
 
         /// <summary>
