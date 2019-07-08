@@ -1,4 +1,4 @@
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -77,7 +77,14 @@ namespace Kotsh.Blocks.Action
         {
             // Store instance
             this.Block = block;
+        }
 
+        /// <summary>
+        /// Start the driver/browser
+        /// </summary>
+        /// <returns>Selenium instance</returns>
+        public Selenium Start()
+        {
             // Set options
             options = new ChromeOptions();
 
@@ -106,7 +113,8 @@ namespace Kotsh.Blocks.Action
             try
             {
                 service = ChromeDriverService.CreateDefaultService(ChromeDriverPath);
-            } catch (DriverServiceNotFoundException)
+            }
+            catch (DriverServiceNotFoundException)
             {
                 Console.WriteLine("FATAL: chromedriver.exe does not exists!");
             }
@@ -115,14 +123,7 @@ namespace Kotsh.Blocks.Action
             service.EnableVerboseLogging = false;
             service.HideCommandPromptWindow = true;
             service.SuppressInitialDiagnosticInformation = true;
-        }
 
-        /// <summary>
-        /// Start the driver/browser
-        /// </summary>
-        /// <returns>Selenium instance</returns>
-        public Selenium Start()
-        {
             // Set proxy
             if (Block.core.ProxyController.UseProxy)
                 options.AddArgument("--proxy-server=" + Block.core.ProxyController.GetURLProxy());
