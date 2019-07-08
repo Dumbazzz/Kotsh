@@ -16,11 +16,6 @@ namespace Kotsh.Blocks.Action
         private Dictionary<string, Type> Keys = new Dictionary<string, Type>();
 
         /// <summary>
-        /// Providing source
-        /// </summary>
-        private Provider Provider { get; set; } = Provider.SOURCE;
-
-        /// <summary>
         /// Source to check according to the Provider
         /// </summary>
         private string Data = "";
@@ -134,8 +129,7 @@ namespace Kotsh.Blocks.Action
         /// <summary>
         /// Check if source contains keys
         /// </summary>
-        /// <param name="response">Response type</param>
-        public Response Contains(Response response)
+        public void Contains()
         {
             // Temporary variables
             bool found = false;
@@ -150,7 +144,7 @@ namespace Kotsh.Blocks.Action
                     found = true;
 
                     // Save type as response
-                    response.type = Keys[key];
+                    Block.response.type = Keys[key];
                 }
             }
 
@@ -158,11 +152,11 @@ namespace Kotsh.Blocks.Action
             if (BanIfNotFound && !found)
             {
                 // Set as banned
-                response.type = Type.BANNED;
+                Block.response.type = Type.BANNED;
             }
 
             // Stop the block on fail, ban or retry
-            if (response.type == Type.BANNED || response.type == Type.RETRY || response.type == Type.FAIL)
+            if (Block.response.type == Type.BANNED || Block.response.type == Type.RETRY || Block.response.type == Type.FAIL)
             {
                 // Stop block execution
                 Block.Stop();
@@ -177,16 +171,12 @@ namespace Kotsh.Blocks.Action
 
             // Reset dictionary
             Keys.Clear();
-
-            // Send response
-            return response;
         }
 
         /// <summary>
         /// Check if source equals keys
         /// </summary>
-        /// <param name="response">Response type</param>
-        public Response Equals(Response response)
+        public void Equals()
         {
             // Temporary variables
             bool found = false;
@@ -201,7 +191,7 @@ namespace Kotsh.Blocks.Action
                     found = true;
 
                     // Save type as response
-                    response.type = Keys[key];
+                    Block.response.type = Keys[key];
                 }
             }
 
@@ -209,11 +199,11 @@ namespace Kotsh.Blocks.Action
             if (BanIfNotFound && !found)
             {
                 // Set as banned
-                response.type = Type.BANNED;
+                Block.response.type = Type.BANNED;
             }
 
             // Stop the block on fail, ban or retry
-            if (response.type == Type.BANNED || response.type == Type.RETRY || response.type == Type.FAIL)
+            if (Block.response.type == Type.BANNED || Block.response.type == Type.RETRY || Block.response.type == Type.FAIL)
             {
                 // Stop block execution
                 Block.Stop();
@@ -228,9 +218,6 @@ namespace Kotsh.Blocks.Action
 
             // Reset dictionary
             Keys.Clear();
-
-            // Send response
-            return response;
         }
     }
 }

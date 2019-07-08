@@ -1,5 +1,6 @@
 ﻿using Kotsh.Blocks.Action;
 using Kotsh.Blocks.Util;
+using Kotsh.Models;
 using Kotsh.Objects;
 using System.Collections.Generic;
 
@@ -35,6 +36,11 @@ namespace Kotsh.Blocks
         public Source Source;
 
         /// <summary>
+        /// Response
+        /// </summary>
+        public Response response;
+
+        /// <summary>
         /// Can continue automation
         /// </summary>
         private bool running = true;
@@ -63,8 +69,11 @@ namespace Kotsh.Blocks
         /// </summary>
         /// <param name="combo">Save combo for automatic usage</param>
         /// <param name="methods">List of actions</param>
-        public void Automate(string combo, List<System.Action> methods)
+        public Response Automate(string combo, Response response, List<System.Action> methods)
         {
+            // Save response
+            this.response = response;
+
             // Save combo
             if (combo != "")
                 SetCombo(combo);
@@ -79,6 +88,9 @@ namespace Kotsh.Blocks
                     method.Invoke();
                 }
             }
+
+            // Return response
+            return this.response;
         }
 
         /// <summary>
