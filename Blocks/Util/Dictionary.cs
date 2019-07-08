@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Kotsh.Blocks.Util
 {
+    /// <summary>
+    /// Dictionary with temporary variables
+    /// </summary>
     public class Dictionary
     {
         /// <summary>

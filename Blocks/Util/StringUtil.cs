@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Kotsh.Blocks.Util
 {
+    /// <summary>
+    /// Some utilities for strings
+    /// </summary>
     public class StringUtil
     {
         /// <summary>

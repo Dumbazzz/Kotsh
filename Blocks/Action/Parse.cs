@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace Kotsh.Blocks.Action
 {
+    /// <summary>
+    /// This block allows to parse elements from URL or source code using some tools
+    /// </summary>
     public class Parse
     {
         /// <summary>

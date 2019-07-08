@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Kotsh.Blocks.Action
 {
+    /// <summary>
+    /// Block used to check elements and determine if they are valid or not
+    /// </summary>
     public class KeyCheck
     {
         /// <summary>
