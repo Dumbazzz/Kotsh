@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -28,6 +28,16 @@ namespace Kotsh.Blocks.Action
         /// Element selector
         /// </summary>
         private By Selector;
+
+        /// <summary>
+        /// Default timeout (60s)
+        /// </summary>
+        public int Timeout = 60;
+
+        /// <summary>
+        /// Ban proxy on timeout
+        /// </summary>
+        public bool BanOnTimeout = true;
 
         /// <summary>
         /// Default Chrome Directory Path
@@ -95,6 +105,20 @@ namespace Kotsh.Blocks.Action
             {
                 Driver.Navigate().GoToUrl(URL);
             }
+            catch (WebDriverTimeoutException)
+            {
+                if (BanOnTimeout)
+                {
+                    Block.response.type = Models.Type.BANNED;
+                }
+                else
+                {
+                    Block.response.type = Models.Type.RETRY;
+                }
+
+                // Relaunch after issue
+                Start(URL);
+            }
             catch (Exception)
             {
                 // Push retry
@@ -103,6 +127,9 @@ namespace Kotsh.Blocks.Action
                 // Relaunch after issue
                 Start(URL);
             }
+
+            // Set timeout
+            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(Timeout);
 
             // Save informations into the source
             Block.Source.Data = Driver.PageSource;
