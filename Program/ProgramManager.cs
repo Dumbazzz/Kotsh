@@ -23,8 +23,8 @@ namespace Kotsh.Program
         public NameValueCollection titles = new NameValueCollection()
         {
             { "idleTitle", "%name% by %author% | v%version% | Idling" },
-            { "runningTitle", "%name% | Hits: %hits% - CPM: %cpm% - Fail: %fail% - Bans: %banned% - Retries: %retry% | Running" },
-            { "endTitle", "%name% | Hits: %hits% - CPM: %cpm% - Fail: %fail% - Bans: %banned% | Finished" }
+            { "runningTitle", "%name% | %cpm% CPM | Hits: %hits% - Free: %free% - Bans: %banned% - Retries: %retry% | Running" },
+            { "endTitle", "%name% | Hits: %hits% - Free: %free% - Fail: %fail% - Bans: %banned% - Retries: %retry% | Finished" }
         };
 
         /// <summary>
