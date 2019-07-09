@@ -34,6 +34,11 @@ namespace Kotsh.Window
         private ReaderWriterLockSlim consoleLock = new ReaderWriterLockSlim();
 
         /// <summary>
+        /// Display the "Made using Kotsh" watermark
+        /// </summary>
+        public bool ShowWatermark { get; set; } = true;
+
+        /// <summary>
         /// Push a specific message with a certain level
         /// </summary>
         /// <param name="level"></param>
@@ -162,14 +167,18 @@ namespace Kotsh.Window
             // Display author and version
             ColorConsole.WriteLine(subtitle, Color.Lime);
 
-            // Format Kotsh message
-            string kotsh = string.Format("Made using Kotsh {0} | Release Type: {1}", core.version, core.releaseMode);
+            // Show watermark
+            if (ShowWatermark)
+            {
+                // Format Kotsh message
+                string kotsh = string.Format("Made using Kotsh {0} | Release Type: {1}", core.version, core.releaseMode);
 
-            // Center message
-            ColorConsole.SetCursorPosition((System.Console.WindowWidth - kotsh.Length) / 2, System.Console.CursorTop);
+                // Center message
+                ColorConsole.SetCursorPosition((System.Console.WindowWidth - kotsh.Length) / 2, System.Console.CursorTop);
 
-            // Display author and version
-            ColorConsole.WriteLine(kotsh, Color.Wheat);
+                // Display author and version
+                ColorConsole.WriteLine(kotsh, Color.Wheat);
+            }
 
             // Break line
             ColorConsole.WriteLine();
