@@ -15,7 +15,7 @@ namespace Kotsh
         /// <summary>
         /// Kotsh details
         /// </summary>
-        public string version = "0.3.2";
+        public string version = "0.3.3";
         public string releaseMode = "RC";
 
         /// <summary>
