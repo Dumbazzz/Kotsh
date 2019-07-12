@@ -93,14 +93,14 @@ namespace Kotsh.Instance
         /// <param name="function">Checking function</param>
         public void RunCombo(Func<string, Response, Response> function)
         {
+            // Set on started
+            core.status = 1;
+
             // Open file stream
             var stream = File.ReadLines(core.runSettings["combolist"]);
 
             // Store line 
             core.ProgramStatistics.SetCount(stream.Count());
-
-            // Set on started
-            core.status = 1;
 
             // Log CPM
             StartBackgroundStatsUpdater();
@@ -143,6 +143,9 @@ namespace Kotsh.Instance
                             {
                                 // Relaunch check
                                 res = function.Invoke(combo, new Response(combo));
+
+                                // Call response handler
+                                core.Handler.Check(res);
                             }
 
                             // Call response handler
@@ -155,7 +158,7 @@ namespace Kotsh.Instance
             // Set on finished
             core.status = 2;
 
-            // Update title
+            // Update title to pass as finished
             core.Program.UpdateTitle();
 
             // Abort stats updater
@@ -180,12 +183,12 @@ namespace Kotsh.Instance
         /// <param name="function">Checking function</param>
         public void RunInfinite(Func<Response, Response> function)
         {
+            // Set on started
+            core.status = 1;
+
             // Store line 
             // TODO: Actually set on max int value
             core.ProgramStatistics.SetCount(int.MaxValue);
-
-            // Set on started
-            core.status = 1;
 
             // Log CPM
             StartBackgroundStatsUpdater();
@@ -211,6 +214,9 @@ namespace Kotsh.Instance
                     {
                         // Relaunch check
                         res = function.Invoke(new Response());
+
+                        // Call response handler
+                        core.Handler.Check(res);
                     }
 
                     // Call response handler
@@ -221,7 +227,7 @@ namespace Kotsh.Instance
             // Set on finished
             core.status = 2;
 
-            // Update title
+            // Update title to pass as finished
             core.Program.UpdateTitle();
 
             // Abort stats updater
