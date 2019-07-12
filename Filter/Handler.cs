@@ -85,6 +85,9 @@ namespace Kotsh.Filter
             // Increment stats
             core.RunStatistics.Increment(response.type);
 
+            // Update title
+            core.Program.UpdateTitle();
+
             // Increment checks and tries
             switch (response.type)
             {
@@ -152,9 +155,6 @@ namespace Kotsh.Filter
                     }
                     break;
             }
-
-            // Update title
-            core.Program.UpdateTitle();
 
             // Display stats
             switch (response.type)
