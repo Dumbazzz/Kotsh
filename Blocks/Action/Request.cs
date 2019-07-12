@@ -1,7 +1,6 @@
 using Kotsh.Models;
 using Leaf.xNet;
 using System;
-using System.Collections.Generic;
 using System.Net;
 
 namespace Kotsh.Blocks
@@ -235,13 +234,11 @@ namespace Kotsh.Blocks
                     Execute(true);
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-                // Push retry
-                Block.core.RunStatistics.Increment(Models.Type.RETRY);
-
-                // Relaunch after issue
-                Execute();
+                // Stop and return block
+                Block.response.type = Models.Type.RETRY;
+                Block.Stop();
             }
             finally
             {
