@@ -97,7 +97,7 @@ namespace Kotsh.Instance
             core.status = 1;
 
             // Log CPM
-            RegisterCPM();
+            StartBackgroundStatsUpdater();
 
             // Assign threads
             Parallel.ForEach(
@@ -179,7 +179,7 @@ namespace Kotsh.Instance
             core.status = 1;
 
             // Log CPM
-            RegisterCPM();
+            StartBackgroundStatsUpdater();
 
             // Assign threads
             Parallel.ForEach(
@@ -217,9 +217,9 @@ namespace Kotsh.Instance
         }
 
         /// <summary>
-        /// Starts a thread to log CPM
+        /// Starts a thread to update statistics in background
         /// </summary>
-        private void RegisterCPM()
+        private void StartBackgroundStatsUpdater()
         {
             // Start CPM calculator thread
             Task.Run(() =>
@@ -228,7 +228,7 @@ namespace Kotsh.Instance
                 while (core.status == 1)
                 {
                     // Get CPM
-                    core.ProgramStatistics.GetCPM();
+                    core.ProgramStatistics.UpdateStats();
                 }
             });
         }

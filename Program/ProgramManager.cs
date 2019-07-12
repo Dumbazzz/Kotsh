@@ -23,7 +23,7 @@ namespace Kotsh.Program
         public NameValueCollection titles = new NameValueCollection()
         {
             { "idleTitle", "%name% by %author% | v%version% | Idling" },
-            { "runningTitle", "%name% | %cpm% CPM | Hits: %hits% - Free: %free% - Bans: %banned% - Retries: %retry% | Running" },
+            { "runningTitle", "%name% | %percent%% | %cpm% CPM | Hits: %hits% - Free: %free% - Bans: %banned% - Retries: %retry% | Running" },
             { "endTitle", "%name% | Hits: %hits% - Free: %free% - Fail: %fail% - Bans: %banned% - Retries: %retry% | Finished" }
         };
 
@@ -111,6 +111,7 @@ namespace Kotsh.Program
                 .Replace("%remaining%", core.ProgramStatistics.Get("remaining").ToString())
                 .Replace("%count%", core.ProgramStatistics.Get("count").ToString())
                 .Replace("%rpm%", core.ProgramStatistics.Get("rpm").ToString())
+                .Replace("%percent%", core.ProgramStatistics.Get("percent").ToString())
 
                 // Targets
                 .Replace("%hits%", core.RunStatistics.Get(Models.Type.HIT).ToString())

@@ -31,6 +31,7 @@ namespace Kotsh.Statistics
             Stats.Add("tries", 0); // Every tries, include bans/retries
             Stats.Add("cpm", 0); // Checked per minute
             Stats.Add("rpm", 0); // Tries per minute
+            Stats.Add("percent", 0); // Progression percentage
         }
 
         /// <summary>
@@ -94,10 +95,43 @@ namespace Kotsh.Statistics
         }
 
         /// <summary>
+        /// Update CPM, RPM and progression percentage
+        /// </summary>
+        public void UpdateStats()
+        {
+            // Update percentage
+            GetPercentage();
+
+            // Update CPM
+            GetCPM();
+
+            // Update RPM
+            GetRPM();
+        }
+
+        private int GetPercentage()
+        {
+            // Get total lines
+            int lines = Get("count");
+
+            // Get checked lines
+            int check = Get("checked");
+
+            // Calculate percentage
+            int percent = (check * 100) / lines;
+
+            // Save percentage
+            Set("percent", percent);
+
+            // Return percentage
+            return percent;
+        }
+
+        /// <summary>
         /// Calculate CPM
         /// </summary>
         /// <returns>CPM</returns>
-        public int GetCPM()
+        private int GetCPM()
         {
             // Get initial checks
             int start = Get("checked");
@@ -122,7 +156,7 @@ namespace Kotsh.Statistics
         /// Calculate RPM
         /// </summary>
         /// <returns>RPM</returns>
-        public int GetRPM()
+        private int GetRPM()
         {
             // Get initial checks
             int start = Get("tries");
