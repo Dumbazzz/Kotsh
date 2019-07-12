@@ -85,6 +85,24 @@ namespace Kotsh.Filter
             // Increment stats
             core.RunStatistics.Increment(response.type);
 
+            // Increment checks and tries
+            switch (response.type)
+            {
+                // Increment checks
+                case Type.HIT:
+                case Type.FREE:
+                case Type.CUSTOM:
+                case Type.EXPIRED:
+                    core.ProgramStatistics.IncrementCheck();
+                    break;
+
+                // Increment tries
+                case Type.BANNED:
+                case Type.RETRY:
+                    core.ProgramStatistics.IncrementCheck(true);
+                    break;
+            }
+
             // Render capture
             StringBuilder capture = new StringBuilder();
 
@@ -107,8 +125,6 @@ namespace Kotsh.Filter
                     }
                 }
             }
-
-
 
             // Render file
             string line = response.combo;
