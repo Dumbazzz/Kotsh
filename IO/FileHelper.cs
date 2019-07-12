@@ -11,7 +11,7 @@ namespace Kotsh.IO
         /// <summary>
         /// Core instance
         /// </summary>
-        private Manager core;
+        private readonly Manager core;
 
         /// <summary>
         /// Execution directory
@@ -26,7 +26,7 @@ namespace Kotsh.IO
         /// <summary>
         /// Write on Lock security (safe threading)
         /// </summary>
-        private ReaderWriterLockSlim fileLock = new ReaderWriterLockSlim();
+        private readonly ReaderWriterLockSlim fileLock = new ReaderWriterLockSlim();
 
         /// <summary>
         /// This variable contains last chosen file
