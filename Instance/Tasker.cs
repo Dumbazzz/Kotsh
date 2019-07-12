@@ -17,7 +17,7 @@ namespace Kotsh.Instance
         /// <summary>
         /// Core instance
         /// </summary>
-        private Manager core;
+        private readonly Manager core;
 
         /// <summary>
         /// Regex for credentials (user:pass and email:pass)
@@ -27,7 +27,7 @@ namespace Kotsh.Instance
         /// <summary>
         /// List of rules
         /// </summary>
-        private List<Objects.Requirements> RequirementsList = new List<Objects.Requirements>();
+        private readonly List<Objects.Requirements> RequirementsList = new List<Objects.Requirements>();
 
         /// <summary>
         /// Requirement controller

@@ -8,12 +8,12 @@ namespace Kotsh.Statistics
         /// <summary>
         /// Core instance
         /// </summary>
-        private Manager core;
+        private readonly Manager core;
 
         /// <summary>
         /// Type-Specific statistics
         /// </summary>
-        private Dictionary<Type, int> TypeStats = new Dictionary<Type, int>();
+        private readonly Dictionary<Type, int> TypeStats = new Dictionary<Type, int>();
 
         /// <summary>
         /// Store the core instance

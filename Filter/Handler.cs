@@ -12,7 +12,7 @@ namespace Kotsh.Filter
         /// <summary>
         /// Core instance
         /// </summary>
-        private Manager core;
+        private readonly Manager core;
 
         /// <summary>
         /// Store the core instance
@@ -32,7 +32,7 @@ namespace Kotsh.Filter
         /// <summary>
         /// Write on Lock security (safe threading)
         /// </summary>
-        private ReaderWriterLockSlim fileLock = new ReaderWriterLockSlim();
+        private readonly ReaderWriterLockSlim fileLock = new ReaderWriterLockSlim();
 
         /// <summary>
         /// Check and makes folder to store results

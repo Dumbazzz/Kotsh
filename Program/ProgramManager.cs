@@ -10,7 +10,7 @@ namespace Kotsh.Program
         /// <summary>
         /// Core instance
         /// </summary>
-        private Manager core;
+        private readonly Manager core;
 
         /// <summary>
         /// Program definitions

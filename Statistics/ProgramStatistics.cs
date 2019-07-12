@@ -8,7 +8,7 @@ namespace Kotsh.Statistics
         /// <summary>
         /// Core instance
         /// </summary>
-        private Manager core;
+        private readonly Manager core;
 
         /// <summary>
         /// Running statistics

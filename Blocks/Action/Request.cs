@@ -54,7 +54,7 @@ namespace Kotsh.Blocks
         /// <summary>
         /// Block instance
         /// </summary>
-        private Block Block;
+        private readonly Block Block;
 
         /// <summary>
         /// Initialize class by storing Block instance
