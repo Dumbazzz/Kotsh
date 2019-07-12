@@ -168,13 +168,15 @@ namespace Kotsh.Blocks
         public Request AddCookies(string name, string value)
         {
             // Create cookie
-            Cookie cookie = new Cookie(name, value);
+            Cookie cookie = new Cookie(name, value)
+            {
 
-            // Set domain
-            cookie.Domain = URL.Host;
+                // Set domain
+                Domain = URL.Host,
 
-            // Set path
-            cookie.Path = URL.PathAndQuery;
+                // Set path
+                Path = URL.PathAndQuery
+            };
 
             // Add cookie
             cookies.Add(cookie);
