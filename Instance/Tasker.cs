@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Kotsh.Instance
@@ -32,6 +33,11 @@ namespace Kotsh.Instance
         /// Requirement controller
         /// </summary>
         public RequirementsController RequirementsController = new RequirementsController();
+
+        /// <summary>
+        /// Stats updater task
+        /// </summary>
+        private Thread StatsUpdater;
 
         /// <summary>
         /// Store the core instance
@@ -151,6 +157,9 @@ namespace Kotsh.Instance
 
             // Update title
             core.Program.UpdateTitle();
+
+            // Abort stats updater
+            StatsUpdater.Abort();
         }
 
         /// <summary>
@@ -214,6 +223,9 @@ namespace Kotsh.Instance
 
             // Update title
             core.Program.UpdateTitle();
+
+            // Abort stats updater
+            StatsUpdater.Abort();
         }
 
         /// <summary>
@@ -221,16 +233,19 @@ namespace Kotsh.Instance
         /// </summary>
         private void StartBackgroundStatsUpdater()
         {
-            // Start CPM calculator thread
-            Task.Run(() =>
+            // Start stats updater
+            StatsUpdater = new Thread(() =>
             {
                 // While checking
                 while (core.status == 1)
                 {
-                    // Get CPM
+                    // Update stats
                     core.ProgramStatistics.UpdateStats();
                 }
             });
+
+            // Start stats updater
+            StatsUpdater.Start();
         }
     }
 }
