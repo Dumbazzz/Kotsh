@@ -1,4 +1,4 @@
-using Kotsh.Models;
+﻿using Kotsh.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,6 +38,11 @@ namespace Kotsh.Instance
         /// Stats updater task
         /// </summary>
         private Thread StatsUpdater;
+
+        /// <summary>
+        /// Runner thread
+        /// </summary>
+        private Thread Runner;
 
         /// <summary>
         /// Store the core instance
@@ -105,20 +110,16 @@ namespace Kotsh.Instance
             // Log CPM
             StartBackgroundStatsUpdater();
 
-            // Assign threads
-            Parallel.ForEach(
-                // File stream
-                stream,
-                // Parallel Options
-                new ParallelOptions
-                {
-                    // Max threads 
-                    MaxDegreeOfParallelism = GetThreads()
-
-                    // Combo => Line
-                    // Controller => Parallel control variable
-                    // Count => Number of lines
-                }, (combo, controller, count) =>
+            // Start runner
+            Runner = new Thread(() =>
+            {
+                // Start running line by line
+                stream
+                .AsParallel()
+                .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
+                .WithMergeOptions(ParallelMergeOptions.AutoBuffered)
+                .WithDegreeOfParallelism(GetThreads())
+                .ForAll((combo) => 
                 {
                     // Check combo using regex
                     if (CredentialsRegex.IsMatch(combo))
@@ -133,6 +134,7 @@ namespace Kotsh.Instance
                             }
                         }
 
+                        // Combo is valid, continue
                         if (valid)
                         {
                             // Execute combo
@@ -152,8 +154,19 @@ namespace Kotsh.Instance
                             core.Handler.Check(res);
                         }
                     }
-                }
-            );
+                });
+            })
+            {
+
+                // Set thread name
+                Name = core.Program.name,
+            };
+
+            // Start thread
+            Runner.Start();
+
+            // Wait until execution is finished
+            Runner.Join();
 
             // Set on finished
             core.status = 2;
@@ -193,18 +206,16 @@ namespace Kotsh.Instance
             // Log CPM
             StartBackgroundStatsUpdater();
 
-            // Assign threads
-            Parallel.ForEach(
-                // Infinite stream
-                Infinite(),
-                // Parallel Options
-                new ParallelOptions
-                {
-                    // Max threads 
-                    MaxDegreeOfParallelism = GetThreads()
-                },
-                // Arguments
-                new Action<bool>((val) =>
+            // Start runner
+            Runner = new Thread(() =>
+            {
+                // Start running line by line
+                Infinite()
+                .AsParallel()
+                .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
+                .WithMergeOptions(ParallelMergeOptions.AutoBuffered)
+                .WithDegreeOfParallelism(GetThreads())
+                .ForAll((combo) =>
                 {
                     // Execute combo
                     Response res = function.Invoke(new Response());
@@ -221,8 +232,18 @@ namespace Kotsh.Instance
 
                     // Call response handler
                     core.Handler.Check(res);
-                }
-            ));
+                });
+            })
+            {
+                // Set thread name
+                Name = core.Program.name,
+            };
+
+            // Start thread
+            Runner.Start();
+
+            // Wait until execution is finished
+            Runner.Join();
 
             // Set on finished
             core.status = 2;
