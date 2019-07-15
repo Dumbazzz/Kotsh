@@ -1,4 +1,4 @@
-﻿using Kotsh.Models;
+using Kotsh.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -249,6 +249,9 @@ namespace Kotsh.Instance
                     core.ProgramStatistics.UpdateStats();
                 }
             });
+
+            // Set thread in background
+            StatsUpdater.IsBackground = true;
 
             // Start stats updater
             StatsUpdater.Start();
